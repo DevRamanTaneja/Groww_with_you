@@ -1,0 +1,1211 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Groww with you: demo</title>
+<meta name="description" content="A clickable demo of Groww for Gen Z investors: practice replays, true costs before you buy, plain-language numbers and money tracking. All companies and numbers are fictional.">
+<meta name="theme-color" content="#0F2A24">
+<meta property="og:title" content="Groww with you: demo">
+<meta property="og:description" content="Simple when you're starting. Powerful when you're ready. A clickable demo with fictional data.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230F2A24'/%3E%3Cpath d='M7 22l6-6 4 4 8-9' stroke='%2300A67E' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..700&family=Schibsted+Grotesk:wght@400..600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page-bg:#EAE6DC; --canvas:#F6F4EE; --paper:#FFFFFF;
+  --ink:#132420; --ink-soft:#57675F;
+  --brand:#0B6B4E; --brand-strong:#08543D; --brand-ink:#0A5940; --brand-tint:#E3F1E9;
+  --loss:#AE3E34; --loss-bg:#FBEBE8;
+  --caution:#8A5A0E; --caution-bg:#FBF0D9;
+  --line:#E2DFD3; --line-soft:#EAE7DC;
+  --practice-canvas:#F5F5FA; --practice:#3D4A72; --practice-strong:#2E3A5C; --practice-2:#5B678E; --practice-tint:#E9EBF3; --practice-line:#DBDEEB;
+  --display:'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --ui:'Schibsted Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:var(--ui);font-size:15px;line-height:1.5;color:var(--ink);background:var(--page-bg);-webkit-font-smoothing:antialiased}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--practice);outline-offset:2px;border-radius:6px}
+[tabindex="-1"]:focus{outline:none}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Stage and phone frame */
+.stage{min-height:100vh;display:flex;justify-content:center;align-items:flex-start;gap:36px;padding:32px 24px}
+.phone{position:relative;width:400px;max-width:100%;height:min(860px, calc(100vh - 48px));background:var(--canvas);border:1px solid #D9D4C5;border-radius:34px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 70px -32px rgba(19,36,32,.4)}
+.app{flex:1;overflow-y:auto;overflow-x:hidden;scroll-behavior:auto}
+.phone.practice .app{background:var(--practice-canvas)}
+
+/* Bars */
+.practice-bar{position:sticky;top:0;z-index:5;display:flex;gap:10px;align-items:center;background:var(--practice);color:#fff;padding:10px 20px}
+.practice-bar svg{flex:none}
+.practice-bar strong{display:block;font-size:14px;line-height:1.2;font-weight:600}
+.practice-bar span{display:block;font-size:13px;opacity:.88;line-height:1.3}
+.topbar{display:flex;align-items:center;gap:8px;padding:14px 12px 6px 12px;min-height:56px}
+.topbar.home{justify-content:space-between;padding-left:20px}
+.wordmark{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:-.01em}
+.topbar-title{font-family:var(--display);font-weight:600;font-size:17px;margin:0;line-height:1.25}
+.icon-btn{width:44px;height:44px;border:0;background:transparent;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:inherit}
+.icon-btn:hover{background:rgba(19,36,32,.06)}
+.content{padding:4px 20px 32px}
+.tabbar{display:flex;border-top:1px solid var(--line);background:var(--paper);padding-bottom:env(safe-area-inset-bottom)}
+.tabbar[hidden]{display:none}
+.tab{flex:1;min-height:58px;border:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:12px;cursor:pointer;color:var(--ink-soft)}
+.tab[aria-current="page"]{color:var(--brand-ink);font-weight:600}
+.tab[aria-current="page"] svg{stroke-width:2.2}
+.phone.practice .tabbar{background:var(--paper);border-top-color:var(--practice-line)}
+.phone.practice .tab[aria-current="page"]{color:var(--practice)}
+
+/* Type */
+h1.page{font-family:var(--display);font-weight:700;font-size:26px;line-height:1.18;letter-spacing:-.01em;margin:8px 0 6px}
+h2.section{font-family:var(--display);font-weight:600;font-size:18px;line-height:1.3;margin:26px 0 10px}
+h3.small{font-size:15px;font-weight:600;margin:20px 0 6px}
+p{margin:0 0 10px}
+.muted{color:var(--ink-soft)}
+.phone.practice .muted{color:var(--practice-2)}
+.big{font-family:var(--display);font-weight:700;font-size:38px;line-height:1.08;letter-spacing:-.015em;font-variant-numeric:tabular-nums;margin:2px 0 6px}
+.mid{font-family:var(--display);font-weight:600;font-size:23px;font-variant-numeric:tabular-nums;margin:0}
+.num{font-variant-numeric:tabular-nums}
+.gain{color:var(--brand-ink)}
+.loss{color:var(--loss)}
+.note{font-size:13px;color:var(--ink-soft);margin-top:14px}
+.chip{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;background:var(--brand-tint);color:var(--brand-ink);font-weight:600;vertical-align:middle}
+.phone.practice .chip{background:var(--practice-tint);color:var(--practice)}
+
+/* Home: welcome line + spotlight (primary CTA) + quiet secondary actions */
+.welcome{font-size:16px;color:var(--ink-soft);margin:10px 0 22px;line-height:1.45}
+.spotlight{background:var(--brand-tint);border-radius:20px;padding:22px 20px;margin:4px 0 22px}
+.spotlight h1.page{margin-top:0}
+.spotlight .btn{margin-top:16px}
+.phone.practice .spotlight{background:var(--practice-tint)}
+.quiet-actions{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:6px 0}
+.quiet-actions .row{min-height:60px}
+
+/* Money hero */
+.hero{padding:10px 0 18px;border-bottom:1px solid var(--line)}
+.hero .label{font-size:14px;color:var(--ink-soft);margin:0}
+
+/* Rows (navigation list) */
+.rows{background:var(--paper);border-radius:16px;border:1px solid var(--line);overflow:hidden}
+.row{display:flex;width:100%;align-items:center;gap:12px;text-align:left;padding:14px 16px;border:0;background:transparent;cursor:pointer;min-height:64px}
+.row + .row{border-top:1px solid var(--line)}
+.row:hover{background:var(--line-soft)}
+.row .t{display:block;font-weight:600}
+.row .s{display:block;color:var(--ink-soft);font-size:14px}
+.row .grow1{flex:1;min-width:0}
+.row .end{text-align:right;font-variant-numeric:tabular-nums}
+.phone.practice .rows{border-color:var(--practice-line)}
+.phone.practice .row:hover{background:var(--practice-tint)}
+
+/* Buttons */
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:50px;border-radius:12px;border:1.5px solid transparent;font-weight:600;cursor:pointer;padding:10px 16px;text-align:center}
+.btn-primary{background:var(--brand-strong);color:#fff}
+.btn-primary:hover{background:#063F2E}
+.btn-outline{background:var(--paper);border-color:var(--ink);color:var(--ink)}
+.btn-even{background:var(--paper);border-color:currentColor}
+.btn-ghost{display:flex;align-items:center;justify-content:center;width:100%;min-height:46px;border-radius:12px;border:0;background:transparent;font-weight:600;cursor:pointer;color:var(--ink-soft)}
+.btn-ghost:hover{background:var(--line-soft);color:var(--ink)}
+.phone.practice .btn-primary{background:var(--practice)}
+.phone.practice .btn-primary:hover{background:var(--practice-strong)}
+.phone.practice .btn-outline,.phone.practice .btn-even{color:var(--practice);border-color:var(--practice)}
+.phone.practice .btn-ghost{color:var(--practice-2)}
+.phone.practice .btn-ghost:hover{background:var(--practice-tint);color:var(--practice)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.stack{display:grid;gap:10px;margin-top:18px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.play-controls{margin-top:16px}
+.play-controls-quiet{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px}
+.play-controls-quiet .link{margin:0}
+.link{border:0;background:transparent;padding:10px 0;min-height:44px;color:var(--brand-ink);font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.phone.practice .link{color:var(--practice)}
+.term{border:0;background:transparent;padding:0;font:inherit;color:inherit;cursor:pointer;border-bottom:1.5px dotted currentColor;line-height:1.3}
+.term:hover{border-bottom-style:solid}
+
+/* Panels */
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:14px}
+.phone.practice .panel{border-color:var(--practice-line)}
+.panel.confirm{border-color:var(--practice);box-shadow:inset 4px 0 0 var(--practice)}
+.kv{display:grid;grid-template-columns:1fr auto;gap:8px 12px;margin:0}
+.kv dt{color:var(--ink-soft)}
+.kv dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.phone.practice .kv dt{color:var(--practice-2)}
+.kv .total{border-top:1px solid var(--line);padding-top:8px}
+.caution{display:flex;gap:10px;align-items:flex-start;background:var(--caution-bg);color:var(--caution);border-radius:12px;padding:12px 14px;margin-top:10px;text-align:left;width:100%;border:0;cursor:pointer}
+.caution svg{flex:none;margin-top:2px}
+.caution.static{cursor:default}
+.success{display:flex;gap:10px;align-items:flex-start;background:var(--brand-tint);color:var(--brand-ink);border-radius:12px;padding:12px 14px;margin-top:10px}
+ul.learn{margin:6px 0 0;padding-left:20px}
+ul.learn li{margin-bottom:6px}
+
+/* Inputs */
+.field{margin-top:14px}
+.field label{display:block;font-weight:600;margin-bottom:6px}
+.money-input{display:flex;align-items:center;background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:0 14px;min-height:54px}
+.money-input:focus-within{border-color:var(--ink)}
+.phone.practice .money-input:focus-within{border-color:var(--practice)}
+.money-input span{font-family:var(--display);font-size:22px;font-weight:600;margin-right:4px}
+.money-input input{border:0;outline:0;background:transparent;font-family:var(--display);font-size:22px;font-weight:600;width:100%;font-variant-numeric:tabular-nums}
+.error{color:var(--loss);font-size:14px;margin-top:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.choice{min-height:44px;padding:8px 16px;border-radius:999px;border:1.5px solid var(--practice);background:var(--paper);color:var(--practice);font-weight:600;cursor:pointer}
+.choice[aria-pressed="true"]{background:var(--practice);color:#fff}
+
+/* Chart */
+.chart{width:100%;height:auto;display:block}
+.chart .base{stroke:currentColor;stroke-dasharray:2 4;opacity:.45}
+.chart-wrap{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:10px;margin-top:12px}
+.phone.practice .chart-wrap{border-color:var(--practice-line);color:var(--practice)}
+.caption{font-size:12px;color:var(--ink-soft);margin:6px 2px 0}
+.legend{display:grid;gap:6px;margin-top:10px}
+.legend div{display:flex;justify-content:space-between;gap:10px}
+.event{margin-top:12px;padding:10px 12px;border-left:3px solid var(--practice);background:var(--practice-tint)}
+
+/* Timeline */
+.timeline{list-style:none;margin:14px 0 0;padding:0}
+.timeline li{position:relative;padding:0 0 18px 34px}
+.timeline li::before{content:"";position:absolute;left:11px;top:22px;bottom:0;width:2px;background:var(--line)}
+.timeline li:last-child::before{display:none}
+.timeline .dot{position:absolute;left:0;top:1px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--line);background:var(--paper)}
+.timeline .done .dot{background:var(--brand-strong);border-color:var(--brand-strong);color:#fff}
+.timeline .now .dot{border-color:var(--ink)}
+.timeline .now .dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--ink)}
+.timeline .late .dot{border-color:var(--caution);background:var(--caution-bg)}
+.timeline .late .dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--caution)}
+.timeline .who{display:block;font-size:13px;color:var(--ink-soft)}
+.timeline .t{font-weight:600}
+details{margin-top:12px}
+summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center;gap:8px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:'+';display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;font-weight:600;line-height:1;flex:none}
+details[open] > summary::before{content:'−'}
+.quiz-opt{display:block;width:100%;text-align:left;min-height:48px;margin-top:8px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);cursor:pointer}
+.phone.practice .quiz-opt{border-color:var(--practice-line)}
+.quiz-opt[aria-pressed="true"].right{border-color:var(--brand-strong);background:var(--brand-tint)}
+.quiz-opt[aria-pressed="true"].wrong{border-color:var(--loss);background:var(--loss-bg)}
+.feedback{margin-top:10px;font-size:14px}
+.steps{font-size:13px;color:var(--practice-2);margin:0}
+.empty{text-align:left;padding:28px 0}
+
+/* Sheet */
+.scrim{position:absolute;inset:0;background:rgba(19,36,32,.42);z-index:20;display:flex;align-items:flex-end}
+.sheet{width:100%;max-height:86%;overflow-y:auto;background:var(--paper);border-radius:22px 22px 0 0;padding:8px 20px calc(24px + env(safe-area-inset-bottom));animation:up .22s ease-out}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;margin:0 -8px 0 -12px}
+.sheet h2{font-family:var(--display);font-weight:700;font-size:21px;line-height:1.2;margin:4px 0 8px}
+.sheet h3{font-size:14px;font-weight:600;color:var(--ink-soft);margin:18px 0 6px}
+.sheet .lens-num{background:var(--canvas);border-radius:12px;padding:12px 14px}
+.cost-row{display:flex;justify-content:space-between;gap:12px;width:100%;border:0;background:transparent;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer;text-align:left;min-height:44px}
+.cost-row .v{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cost-row .lab{border-bottom:1.5px dotted currentColor}
+.foot{font-size:12px;color:var(--ink-soft);margin-top:14px}
+@keyframes up{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}
+
+/* Toast */
+.toast{position:absolute;left:16px;right:16px;bottom:calc(72px + env(safe-area-inset-bottom));z-index:30;background:var(--ink);color:#fff;border-radius:12px;padding:12px 14px;font-size:14px;opacity:0;transform:translateY(8px);transition:opacity .2s, transform .2s;pointer-events:none}
+.toast.show{opacity:1;transform:none}
+
+/* Reviewer tools — deliberately plain utility chrome, never mistaken for app UI */
+.reviewer-toggle{display:none}
+.reviewer-toggle svg{flex:none}
+.controls{width:280px;flex:none;font-size:13px;background:#F0EEE6;border:1px solid #C9C4B4;border-radius:14px;padding:16px;position:sticky;top:32px;max-height:calc(100vh - 64px);overflow:auto;color:#3A423E;opacity:.92}
+.controls:hover,.controls:focus-within{opacity:1}
+.controls h2{font-family:var(--ui);font-weight:700;font-size:13px;margin:0 0 4px;text-transform:none;color:#3A423E}
+.controls > p.muted{color:#6B7169;font-size:12px}
+.controls h3{font-size:12px;font-weight:600;margin:14px 0 6px;color:#6B7169}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{min-height:34px;padding:4px 10px;border-radius:8px;border:1px solid #B9B4A3;background:#fff;cursor:pointer;font-size:12px;color:#3A423E}
+.seg button[aria-pressed="true"]{background:#3A423E;color:#fff;border-color:#3A423E}
+.tour{margin:0;padding-left:18px}
+.tour li{margin:2px 0}
+.tour button{border:0;background:transparent;padding:4px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-align:left;min-height:32px;font-size:12px;color:#3A423E}
+.controls .close-controls{display:none}
+
+@media (max-width: 899px){
+  .controls{display:none}
+  .controls.open{display:block;position:fixed;left:8px;right:8px;bottom:8px;top:auto;width:auto;max-height:70vh;z-index:61;box-shadow:0 20px 40px rgba(0,0,0,.3);opacity:1}
+  .controls .close-controls{display:inline-flex;float:right}
+  .reviewer-toggle{position:fixed;right:14px;bottom:14px;z-index:15;display:flex;align-items:center;gap:6px;font-size:12px;font-family:var(--ui);padding:6px 12px;min-height:38px;border-radius:8px;border:1px solid #8B9A93;background:#F0EEE6;color:#3A423E;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.18);opacity:.55;transition:opacity .15s}
+  .reviewer-toggle:hover,.reviewer-toggle:focus-visible{opacity:1}
+}
+@media (max-width: 600px){
+  .stage{padding:0}
+  .phone{width:100%;height:100vh;height:100dvh;border-radius:0;border:0;box-shadow:none}
+  .reviewer-toggle{bottom:calc(66px + env(safe-area-inset-bottom))}
+}
+@media (prefers-reduced-motion: reduce){
+  .sheet{animation:none}
+  .toast{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="phone" id="phone">
+    <div class="app" id="app"></div>
+    <nav class="tabbar" id="tabbar" aria-label="Main"></nav>
+    <div id="sheet-root"></div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </div>
+  <aside class="controls" id="controls" aria-label="Reviewer controls"></aside>
+</div>
+<button class="reviewer-toggle" type="button" data-act="toggleControls" aria-controls="controls" aria-expanded="false">For reviewers</button>
+
+<script>
+(function () {
+'use strict';
+
+/* ---------- Formatting ---------- */
+const r2 = n => Math.round((n + Number.EPSILON) * 100) / 100;
+const f0 = new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 });
+const f2 = new Intl.NumberFormat('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const rs = n => (n < 0 ? '−' : '') + '₹' + f0.format(Math.abs(Math.round(n)));
+const rs2 = n => (n < 0 ? '−' : '') + '₹' + f2.format(Math.abs(n));
+const pctAbs = (n, d = 1) => Math.abs(n).toFixed(d) + '%';
+const signedPct = (n, d = 1) => (n < 0 ? '−' : n > 0 ? '+' : '') + pctAbs(n, d);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const plural = (n, one, many) => n === 1 ? one : many;
+function moveText(delta, base) {
+  if (Math.abs(delta) < 0.5) return 'no change yet';
+  const p = base ? (delta / base) * 100 : 0;
+  const d = Math.abs(p) < 1 ? 1 : 0;
+  return (delta < 0 ? 'down ' : 'up ') + rs(Math.abs(delta)) + ' (' + signedPct(p, d) + ')';
+}
+
+/* ---------- Cost calculator (sample rate card) ---------- */
+function estimateCharges(V, side) {
+  let brokerage = Math.min(20, 0.001 * V);
+  if (brokerage < 5) brokerage = Math.min(5, 0.025 * V);
+  const exchange = 0.0000297 * V, sebi = 0.000001 * V, ipft = 0.000001 * V, stt = 0.001 * V;
+  const stamp = side === 'buy' ? 0.00015 * V : 0;
+  const dp = side === 'sell' && V >= 100 ? 20 : 0;
+  const gst = 0.18 * (brokerage + exchange + sebi + dp);
+  const total = r2(brokerage + exchange + sebi + ipft + stt + stamp + dp + gst);
+  return { brokerage, exchange, sebi, ipft, stt, stamp, dp, gst, fees: exchange + sebi + ipft, total };
+}
+function roundTrip(V) {
+  const buy = estimateCharges(V, 'buy').total, sell = estimateCharges(V, 'sell').total;
+  const rt = r2(buy + sell);
+  return { buy, sell, rt, pct: r2(rt / V * 100) };
+}
+[[80, 2.45, 2.44, 4.89, 6.11], [500, 6.49, 30.02, 36.51, 7.30], [5000, 11.84, 34.69, 46.53, 0.93], [50000, 82.96, 99.06, 182.02, 0.36]]
+  .forEach(([V, b, s, rt, p]) => {
+    const x = roundTrip(V);
+    if (x.buy !== b || x.sell !== s || x.rt !== rt || x.pct !== p) {
+      throw new Error(
+        'Cost calculator mismatch for ₹' + V +
+        ' — expected {buy:' + b + ', sell:' + s + ', rt:' + rt + ', pct:' + p + '}' +
+        ' but received {buy:' + x.buy + ', sell:' + x.sell + ', rt:' + x.rt + ', pct:' + x.pct + '}'
+      );
+    }
+  });
+
+/* ---------- Static demo data (all fictional) ---------- */
+const DEMO_TODAY = new Date('2026-09-17T12:00:00');
+// Kiran Foods' price lives in exactly one place. Every screen (Explore, Buy,
+// Holdings, Practice replay B) reads it from here, directly or via DATA.stocks.kiran.price,
+// so it can never disagree with itself across screens.
+const KIRAN_PRICE = 487;
+const DATA = {
+  stocks: {
+    kiran: { id: 'kiran', name: 'Kiran Foods Ltd', price: KIRAN_PRICE, sector: 'Packaged foods', board: 'Main board', flags: [], chart: [452, 461, 458, 470, 466, 479, 475, 483, KIRAN_PRICE] },
+    nimbus: { id: 'nimbus', name: 'Nimbus Power Ltd', price: 1240, sector: 'Power utilities', board: 'Main board', flags: [], chart: [1180, 1195, 1210, 1188, 1201, 1222, 1230, 1236, 1240] },
+    zephyr: { id: 'zephyr', name: 'Zephyr Micro Ltd', price: 38, sector: 'Electronic components', board: 'SME platform', flags: ['surveillance', 'sme', 'lowVolume'], chart: [12, 14, 17, 22, 29, 26, 33, 41, 38] }
+  },
+  fund: { name: 'Sample Nifty 50 Index Fund', nav: 24.60, expense: 0.20 },
+  holdings: {
+    // avg is what they paid before this window; cur is never a separate number —
+    // it's always today's Explore price, so Holdings and Explore can't drift apart.
+    kiran: { shares: 5, avg: 512, cur: KIRAN_PRICE },
+    fund: { invested: 12000, current: 13380, flows: [{ date: '2025-07-17', amt: 4560 }, { date: '2026-06-17', amt: 7440 }] }
+  },
+  flags: {
+    surveillance: { short: 'On an exchange watch list for unusual price moves', topic: 'flag-surveillance' },
+    sme: { short: 'Listed on the SME platform, where fewer people trade each day', topic: 'flag-sme' },
+    lowVolume: { short: 'Few shares change hands each day, so the price you see may not last', topic: 'flag-lowVolume' }
+  },
+  replays: {
+    A: { id: 'A', title: 'What if the market falls after you buy?', short: 'Market falls after you buy',
+      base: [1000, 985, 970, 930, 880, 850, 820, 845, 890, 940, 985, 1010, 1040],
+      labels: [1, 2, 3, 5, 7, 10, 14, 19, 25, 32, 40, 50, 60].map(d => 'Day ' + d),
+      events: { 3: 'Prices slid for a week after weak economic news.', 6: 'This is the lowest point of the replay.', 9: 'Prices started recovering as news improved.', 12: 'The price is now above where you started.' },
+      learned: ['Prices can fall after you buy — that’s a normal market move, not a mistake.', 'A fall is an unrealised loss. It’s real on screen, but not final until you sell.', 'Selling turns an unrealised loss into a realised one. A recovery after that is never guaranteed.'],
+      quiz: { q: 'When does an unrealised loss become a realised one?',
+        opts: ['As soon as the value drops', 'When you sell while the price is down', 'Only if the company shuts down'], right: 1,
+        why: ['A drop in value is unrealised — it can still recover or fall further from here. Selling is the step that makes it final.', 'Right. Selling while the price is down is what turns a paper loss into a real one.', 'You don’t have to wait that long. Selling at a lower price already realises the loss, whatever happens to the company afterwards.'] } },
+    B: { id: 'B', title: 'What does a ₹500 order really cost?', short: 'A ₹500 order',
+      prices: [KIRAN_PRICE, 492, 498, 503, 509, 514, 521],
+      labels: [1, 5, 10, 15, 20, 25, 30].map(d => 'Day ' + d),
+      events: { 3: 'The price is up, but your charges haven’t been covered yet.', 6: 'The price rose about 7%. Check what’s left after charges.' },
+      learned: ['Charges take a big bite out of small orders.', 'Selling adds a fixed DP charge, so break-even is higher than it looks.', 'Fewer, larger orders or a monthly fund investment cost less.'],
+      quiz: { q: 'Why can a small order lose money even when the price rises?',
+        opts: ['Fixed charges are a big share of a small order', 'Prices always fall after you buy', 'Small orders get a worse price'], right: 0,
+        why: ['Right. A ₹20 DP charge is 4% of a ₹500 order, but under 0.1% of a ₹50,000 one.', 'Prices move both ways. Here it rose and you still barely broke even.', 'Everyone gets the same market price. The difference is how charges scale.'] } },
+    C: { id: 'C', title: 'One stock or five?', short: 'One stock or five',
+      one: [1000, 1060, 1110, 760, 700, 720], spread: [1000, 1020, 1045, 990, 1005, 1030],
+      labels: [1, 15, 30, 45, 60, 75].map(d => 'Day ' + d),
+      events: { 3: 'Orbit Retail reported a big loss. Its price dropped sharply. The other four companies were barely affected.' },
+      learned: ['One company’s bad news can hit a one-stock portfolio hard.', 'Spreading money across companies softens the fall.', 'Five small orders cost more in charges than one, so spread wisely.'],
+      quiz: { q: 'Why did the one-stock portfolio fall harder?',
+        opts: ['All the money depended on one company', 'Spread-out portfolios never fall', 'It paid higher charges'], right: 0,
+        why: ['Right. When that one company had bad news, nothing else balanced it.', 'Spread-out portfolios fall too, just usually less sharply.', 'Charges were actually lower for the one-stock portfolio.'] } },
+    D: { id: 'D', title: 'A high-risk trade (options)', short: 'Options trade',
+      base: [1000, 1150, 900, 600, 350, 120, 40],
+      labels: ['7 days to expiry', '6 days to expiry', '5 days to expiry', '4 days to expiry', '3 days to expiry', '2 days to expiry', 'Expiry day'],
+      events: { 1: 'The index moved your way. The option jumped.', 3: 'The index stalled. Time value keeps fading every day.', 5: 'Close to expiry, most of the value is gone.' },
+      learned: ['Options can lose most of their value within days.', 'Time value shrinks as expiry gets closer, even if nothing else happens.', 'An early gain can disappear quickly.'],
+      quiz: { q: 'What happened to the option’s value as expiry got closer?',
+        opts: ['It kept losing time value', 'It was protected from losses', 'It had to go back up by expiry'], right: 0,
+        why: ['Right. Time value fades every day and is almost gone at expiry.', 'Nothing protected it. Most of the premium was lost.', 'Nothing forces an option to recover before expiry.'] } }
+  }
+};
+const REPLAY_INSTRUMENT = { A: 'Sample Market ETF', B: 'Kiran Foods Ltd', C: 'Orbit Retail Ltd and 4 other sample companies', D: 'Sample index call option' };
+
+function xirr(flows, current, today) {
+  const yrs = f => (today - new Date(f.date + 'T12:00:00')) / (365 * 864e5);
+  const fv = r => flows.reduce((s, f) => s + f.amt * Math.pow(1 + r, yrs(f)), 0);
+  let lo = -0.99, hi = 10;
+  for (let i = 0; i < 200; i++) { const mid = (lo + hi) / 2; if (fv(mid) > current) hi = mid; else lo = mid; }
+  return ((lo + hi) / 2) * 100;
+}
+const FUND = DATA.holdings.fund;
+const FUND_XIRR = xirr(FUND.flows, FUND.current, DEMO_TODAY);
+const FUND_ABS = (FUND.current - FUND.invested) / FUND.invested * 100;
+const RECENT_SHARE = FUND.flows.filter(f => (DEMO_TODAY - new Date(f.date + 'T12:00:00')) / 864e5 <= 183).reduce((s, f) => s + f.amt, 0) / FUND.invested;
+const K = DATA.holdings.kiran;
+const K_INV = K.shares * K.avg, K_NOW = K.shares * K.cur, K_PNL = K_NOW - K_INV;
+const TOTAL_INV = K_INV + FUND.invested, TOTAL_NOW = K_NOW + FUND.current;
+
+/* ---------- Icons ---------- */
+const svg = (d, s = 22, extra = '') => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ${extra}>${d}</svg>`;
+const I = {
+  back: svg('<path d="M15 5l-7 7 7 7"/>'),
+  chev: svg('<path d="M9 5l7 7-7 7"/>', 18),
+  help: svg('<circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.4 2.3c-.7.3-1 .8-1 1.5v.4"/><circle cx="12" cy="16.8" r=".6" fill="currentColor"/>'),
+  close: svg('<path d="M6 6l12 12M18 6L6 18"/>'),
+  home: svg('<path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1z"/>'),
+  grid: svg('<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9.3h16M4 14.6h16M9.3 4v16M14.6 4v16"/>'),
+  wallet: svg('<path d="M4 7h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M4 7l11-3v3"/><circle cx="16" cy="13.5" r="1" fill="currentColor"/>'),
+  alert: svg('<path d="M12 4l9 16H3z"/><path d="M12 10v4"/><circle cx="12" cy="17" r=".6" fill="currentColor"/>', 18),
+  check: svg('<path d="M6 12.5l4 4 8-9"/>', 14, 'stroke-width="2.6"'),
+  checkBig: svg('<circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/>', 22)
+};
+
+/* ---------- State ---------- */
+const initial = () => ({
+  account: 'new', order: null, tracker: null, trackerFeedback: null, redeemAmt: '8000',
+  buyAmt: { kiran: '500', nimbus: '500', zephyr: '500' },
+  amt: { choice: 1000, custom: '' },
+  pr: null, risk: { done: false },
+  hypePick: null
+});
+let state = initial();
+try { const saved = localStorage.getItem('gwy-account'); if (saved && ['new', 'investor', 'trader'].includes(saved)) state.account = saved; } catch (e) { /* storage unavailable */ }
+function saveAccount() { try { localStorage.setItem('gwy-account', state.account); } catch (e) { /* ignore */ } }
+
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const appEl = document.getElementById('app');
+const phone = document.getElementById('phone');
+const tabbar = document.getElementById('tabbar');
+const sheetRoot = document.getElementById('sheet-root');
+const controls = document.getElementById('controls');
+const toastEl = document.getElementById('toast');
+let sheets = [], sheetOpener = null, timer = null, toastTimer = null, lastRoute = '';
+
+/* ---------- Helpers ---------- */
+const term = (topic, text) => `<button type="button" class="term" data-act="lens" data-arg="${esc(topic)}">${text}</button>`;
+const row = (act, arg, t, s, end = '') => `<button type="button" class="row" data-act="${act}" data-arg="${esc(arg)}"><span class="grow1"><span class="t">${t}</span>${s ? `<span class="s">${s}</span>` : ''}</span>${end ? `<span class="end">${end}</span>` : ''}${I.chev}</button>`;
+function toast(msg) {
+  toastEl.textContent = msg; toastEl.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => toastEl.classList.remove('show'), 3200);
+}
+function go(hash) { if (location.hash === hash) render(); else location.hash = hash; }
+
+function chart({ series, upto, height = 150, baseline = null, label }) {
+  const W = 340, H = height, P = 12;
+  const all = series.flatMap(s => s.values).concat(baseline != null ? [baseline] : []);
+  let min = Math.min(...all), max = Math.max(...all);
+  const pad = (max - min) * 0.12 || 1; min -= pad; max += pad;
+  const n = series[0].values.length, u = Math.min(upto, n - 1);
+  const x = i => P + i * (W - 2 * P) / (n - 1);
+  const y = v => P + (max - v) * (H - 2 * P) / (max - min);
+  let out = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">`;
+  if (baseline != null) out += `<line class="base" x1="${P}" x2="${W - P}" y1="${y(baseline).toFixed(1)}" y2="${y(baseline).toFixed(1)}" stroke-width="1.5"/>`;
+  series.forEach(s => {
+    const pts = s.values.slice(0, u + 1).map((v, i) => x(i).toFixed(1) + ',' + y(v).toFixed(1)).join(' ');
+    out += `<polyline points="${pts}" fill="none" stroke="${s.color}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"${s.dashed ? ' stroke-dasharray="7 6"' : ''}/>`;
+    out += `<circle cx="${x(u).toFixed(1)}" cy="${y(s.values[u]).toFixed(1)}" r="4.5" fill="${s.color}"/>`;
+  });
+  return out + '</svg>';
+}
+
+/* ---------- Practice model ---------- */
+function prSeries(pr) {
+  const R = DATA.replays[pr.id];
+  if (pr.id === 'A' || pr.id === 'D') return { main: R.base.map(v => v * pr.invested / 1000) };
+  if (pr.id === 'B') return { main: R.prices.slice() };
+  return { main: R.one.map(v => v * pr.invested / 1000), spread: R.spread.map(v => v * pr.invested / 1000) };
+}
+function prLast(pr) { return prSeries(pr).main.length - 1; }
+function prExit(pr) { return pr.soldAt != null ? pr.soldAt : prLast(pr); }
+function prCharges(pr, exitIdx) {
+  const s = prSeries(pr);
+  if (pr.id === 'D') return null;
+  if (pr.id === 'C') {
+    const one = r2(estimateCharges(pr.invested, 'buy').total + estimateCharges(s.main[exitIdx], 'sell').total);
+    const five = r2(5 * estimateCharges(pr.invested / 5, 'buy').total + 5 * estimateCharges(s.spread[exitIdx] / 5, 'sell').total);
+    return { one, five };
+  }
+  return r2(estimateCharges(pr.invested, 'buy').total + estimateCharges(s.main[exitIdx], 'sell').total);
+}
+function amountFromChoice() {
+  if (state.amt.choice === 'custom') {
+    const v = Number(state.amt.custom);
+    if (!state.amt.custom || !Number.isFinite(v)) return { ok: false, msg: 'Enter an amount between ₹100 and ₹50,000.' };
+    if (v < 100 || v > 50000) return { ok: false, msg: 'Enter an amount between ₹100 and ₹50,000.' };
+    return { ok: true, v: Math.floor(v) };
+  }
+  return { ok: true, v: state.amt.choice };
+}
+function buildPr(id) {
+  if (id === 'B') return { id, amount: KIRAN_PRICE, invested: KIRAN_PRICE, units: 1, step: 0, placed: false, soldAt: null, quizPick: null, auto: false };
+  const a = amountFromChoice(); if (!a.ok) return null;
+  if (id === 'A') { const units = Math.floor(a.v / 100); return { id, amount: a.v, invested: units * 100, units, step: 0, placed: false, soldAt: null, quizPick: null, auto: !reduced }; }
+  return { id, amount: a.v, invested: a.v, units: 1, step: 0, placed: false, soldAt: null, quizPick: null, auto: false };
+}
+
+/* ---------- Lens topics ---------- */
+function lensTopic(key) {
+  const [name, p1, p2] = key.split(':');
+  const hasHoldings = state.account !== 'new';
+  const T = {
+    'how-orders-work': () => ({ title: 'How buying, selling and charges work',
+      what: 'When you buy, your order goes to the stock exchange and is matched with someone selling at that price.',
+      yours: `<ol class="learn" style="padding-left:20px;margin:0"><li>You place an order. A ${term('market-order', 'market order')} buys at the best price available now.</li><li>The exchange matches it with a seller.</li><li>Your shares reach your demat account the next working day. That’s ${term('settlement', 'settlement')}.</li><li>You pay charges on every order. Selling adds a fixed ${term('dp', 'DP charge')}.</li><li>When you sell, the money is usually ready to withdraw the next working day.</li></ol>`,
+      example: (() => { const x = roundTrip(500); return `On a ₹500 order, buying costs about ${rs2(x.buy)} and selling later about ${rs2(x.sell)}. That’s ${pctAbs(x.pct)} of your money before any gain.`; })() }),
+    'market-order': () => ({ title: 'Market order', what: 'An order to buy or sell right away at the best price available on the exchange.', example: `If a share shows ${rs(KIRAN_PRICE)}, your market order usually fills at or very near ${rs(KIRAN_PRICE)}. In fast-moving markets the price you get can differ slightly.` }),
+    'brokerage': () => ({ title: 'Brokerage', what: 'The fee your broker charges for each order. In this demo’s sample rate card it’s ₹20 or 0.1% of the order, whichever is lower, with a ₹5 minimum.',
+      yours: `On a ₹500 order the minimum applies: ₹5, which is 1% of your order. On a ₹50,000 order it’s capped at ₹20, which is 0.04%.`, example: 'Small orders pay a much bigger share of their value in brokerage.' }),
+    'dp': () => ({ title: 'DP charge', what: 'A fixed fee each time you sell shares from your demat account. In this demo it’s ₹20 (₹16.50 broker plus ₹3.50 depository) plus GST, on sells worth ₹100 or more.',
+      example: 'Selling ₹500 of shares: the DP charge alone is about 4.7% of the sale including GST. Selling ₹50,000: under 0.05%.' }),
+    'stt': () => ({ title: 'Securities transaction tax (STT)', what: 'A government tax on stock trades: 0.1% of the order value when you buy and when you sell for delivery.', example: 'On a ₹500 order, STT is ₹0.50 each way.' }),
+    'stamp': () => ({ title: 'Stamp duty', what: 'A government duty on buying: 0.015% of the order value. There’s none when you sell.', example: 'On a ₹500 purchase it’s about ₹0.08.' }),
+    'gst': () => ({ title: 'GST', what: 'Goods and services tax at 18%, charged on brokerage, exchange fees, SEBI fees and the DP charge. Not on STT or stamp duty.', example: 'On a ₹5 brokerage fee, GST adds ₹0.90.' }),
+    'fees': () => ({ title: 'Exchange and SEBI fees', what: 'Small fees the stock exchange and regulator charge on every order. They’re a tiny percentage of the order value.', example: 'On ₹500, together they come to about 2 paise.' }),
+    'expense-ratio': () => ({ title: 'Expense ratio', what: 'What a mutual fund charges each year to manage your money, as a percentage of what you hold.',
+      yours: `This sample fund charges ${DATA.fund.expense.toFixed(2)}% a year.`, example: 'At 0.20%, you’d pay about ₹20 a year for every ₹10,000 invested. The actual amount changes as your investment’s value changes.' }),
+    'nav': () => ({ title: 'NAV (net asset value)', what: 'The price of one unit of a mutual fund, worked out once at the end of each market day.', yours: `This sample fund’s NAV is ₹${DATA.fund.nav.toFixed(2)}. ₹500 buys about ${(500 / DATA.fund.nav).toFixed(2)} units.` }),
+    'settlement': () => ({ title: 'Settlement', what: 'The step where shares and money actually change hands after a trade.', example: 'Buy today and the shares reach your demat account the next working day. Sell today and the money is usually ready to withdraw the next working day.' }),
+    'exit-load': () => ({ title: 'Exit load', what: 'A fee some mutual funds charge if you withdraw within a set period.', yours: 'This sample fund has no exit load, so withdrawing costs you nothing extra.' }),
+    'avg-price': () => ({ title: 'Average price', what: 'What you paid per share on average, across all your purchases of that stock.',
+      yours: hasHoldings ? `You own ${K.shares} shares of Kiran Foods. You paid ${rs(K_INV)} in total, so ${rs(K_INV)} ÷ ${K.shares} = ${rs(K.avg)} per share.` : null,
+      example: 'Buy 1 share at ₹100 and 1 at ₹120: your average price is ₹110.' }),
+    'unrealised-pnl': () => ({ title: 'Unrealised P&L', what: 'The gain or loss on shares you still own, based on today’s market value. It moves with the price and turns into a realised gain or loss only when you sell.' }),
+    'realised-pnl': () => ({ title: 'Realised P&L', what: 'The gain or loss you locked in by actually selling. Once you sell, it doesn’t change again.' }),
+    'pnl-kiran': () => { const sell = estimateCharges(K_NOW, 'sell').total; return { title: `You’re down ${rs(Math.abs(K_PNL))}`,
+      what: `This is your ${term('unrealised-pnl', 'unrealised P&L')} on Kiran Foods.`,
+      yours: `Bought ${K.shares} × ${rs(K.avg)} = ${rs(K_INV)}<br>Worth now ${K.shares} × ${rs(K.cur)} = ${rs(K_NOW)}<br><strong>${rs(K_NOW)} − ${rs(K_INV)} = ${rs(K_PNL)}</strong>`,
+      why: `The market value has fallen, but you haven’t sold, so this loss is unrealised. Selling today would make it realised and would also cost about ${rs2(sell)} in charges. The price could recover, but that’s never guaranteed.` }; },
+    'absolute-return': () => ({ title: 'Total return', what: 'How much your investment has grown overall, ignoring how long the money was invested.',
+      yours: hasHoldings ? `(${rs(FUND.current)} − ${rs(FUND.invested)}) ÷ ${rs(FUND.invested)} = <strong>${signedPct(FUND_ABS)}</strong>` : null }),
+    'xirr': () => ({ title: 'XIRR', what: 'Your yearly growth rate, accounting for when you added money.',
+      yours: hasHoldings ? `You added ${FUND.flows.map(f => rs(f.amt) + ' on ' + new Date(f.date + 'T12:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })).join(' and ')}. It’s worth ${rs(FUND.current)} today. That works out to <strong>${signedPct(FUND_XIRR)}</strong> a year.` : null,
+      why: hasHoldings && RECENT_SHARE > 0.5 ? `Why it’s higher than your ${signedPct(FUND_ABS)} total return: ${Math.round(RECENT_SHARE * 100)}% of your money went in during the last 6 months. It earned its share of the gain in less time, so the yearly rate comes out higher.` : null,
+      example: 'Earning 10% in 6 months is a faster pace than earning 10% in 2 years. XIRR captures that pace.' }),
+    'charges': () => { const V = Number(p1), side = p2, c = estimateCharges(V, side);
+      const lines = [['Brokerage', c.brokerage, 'brokerage']];
+      if (side === 'sell') lines.push(['DP charge', c.dp, 'dp']);
+      lines.push(['STT', c.stt, 'stt']);
+      if (side === 'buy') lines.push(['Stamp duty', c.stamp, 'stamp']);
+      lines.push(['Exchange and SEBI fees', c.fees, 'fees'], ['GST', c.gst, 'gst']);
+      return { title: side === 'buy' ? 'Why you pay this when buying' : 'What selling later would cost',
+        what: `Estimated charges on a ${rs(V)} ${side === 'buy' ? 'purchase' : 'sale'}. Tap any line to see what it is.`,
+        raw: lines.map(([l, v, t]) => `<button type="button" class="cost-row" data-act="lens" data-arg="${t}"><span class="lab">${l}</span><span class="v">${rs2(r2(v))}</span></button>`).join('') + `<div class="cost-row" style="cursor:default;border:0"><strong>Total</strong><span class="v">${rs2(c.total)}</span></div>` }; },
+    'roundtrip': () => { const V = Number(p1), x = roundTrip(V); return { title: 'Round trip', what: 'What it costs to buy now and sell later, added together.',
+      yours: `${rs2(x.buy)} to buy + ${rs2(x.sell)} to sell = <strong>${rs2(x.rt)}</strong><br>${rs2(x.rt)} ÷ ${rs(V)} = <strong>${pctAbs(x.pct, 2)}</strong> of your order`,
+      why: `So the price needs to rise about ${pctAbs(x.pct)} before you make any money, if you sell at that price.` }; },
+    'flag-surveillance': () => ({ title: 'Exchange watch list', what: 'Stock exchanges put some stocks on watch lists when their prices or volumes move unusually. Extra rules, like higher margins, can apply.', example: 'It isn’t a verdict on the company. It’s a signal that the price has been behaving unusually, so check what’s driving it.' }),
+    'flag-sme': () => ({ title: 'SME platform', what: 'A separate exchange platform for small and medium companies. Fewer people trade these stocks, and disclosure rules are lighter than on the main board.', example: 'Prices on this platform can swing more, and it can take longer to find someone to trade with.' }),
+    'flag-lowVolume': () => ({ title: 'Low trading volume', what: 'Only a few shares of this company change hands each day.', example: 'When you want to exit, there may not be enough interest at the price you see, so you may get less.' }),
+    'time-value': () => ({ title: 'Time value', what: 'Part of an option’s price reflects the time left before expiry. That part shrinks every day and reaches zero at expiry.' }),
+    'lot-size': () => ({ title: 'Lot size', what: 'Options trade in fixed bundles called lots. You can’t buy less than one lot, so the minimum amount at risk can be large.' }),
+    'why-move': () => whyMove(),
+    'glossary': () => null
+  };
+  const fn = T[name];
+  return fn ? fn() : null;
+}
+function whyMove() {
+  const pr = state.pr; if (!pr) return { title: 'Why did it move?', what: 'Start a replay to see this.' };
+  const s = prSeries(pr), i = pr.step, v = s.main[i];
+  if (pr.id === 'C') {
+    return { title: 'Why the two lines differ', what: 'Both portfolios started with the same money on the same day.',
+      yours: `All in one company: ${rs(v)}, ${moveText(v - pr.invested, pr.invested)}<br>Spread across five: ${rs(s.spread[i])}, ${moveText(s.spread[i] - pr.invested, pr.invested)}`,
+      why: 'When one company has bad news, a one-stock portfolio takes the full hit. In a spread portfolio, that company is only a fifth of your money.' };
+  }
+  if (pr.id === 'D') {
+    return { title: 'Why the option lost value', what: `An option’s price depends on the index and on ${term('time-value', 'time value')}.`,
+      yours: `You paid ${rs(pr.invested)}. It’s worth ${rs(v)} now: ${moveText(v - pr.invested, pr.invested)}.`,
+      why: 'Even when the index doesn’t move against you, time value fades every day. Close to expiry, very little is left.' };
+  }
+  const d = v - pr.invested;
+  const what = d < 0 ? 'The market price fell after you bought. You still own the same number of units. Their market value is lower right now.'
+    : d > 0 ? 'The market price rose after you bought. You still own the same number of units. Their market value is higher right now.'
+    : 'The price is about where you bought it.';
+  const units = pr.id === 'A' ? `${pr.units} ${plural(pr.units, 'unit', 'units')}` : '1 share';
+  return { title: d < 0 ? `Why you’re down ${rs(Math.abs(d))}` : d > 0 ? `Why you’re up ${rs(d)}` : 'Why nothing changed',
+    what, yours: `You put in ${rs(pr.invested)} for ${units}. It’s worth ${rs(v)} now: ${moveText(d, pr.invested)}.`,
+    why: d < 0 ? 'This is an unrealised loss. It becomes real only if you sell — and if you don’t, the price could still fall further. Recovery is never guaranteed.' : 'This is unrealised. It becomes a realised gain or loss only when you sell.' };
+}
+const GLOSSARY = [['unrealised-pnl', 'Unrealised P&L'], ['realised-pnl', 'Realised P&L'], ['avg-price', 'Average price'], ['xirr', 'XIRR'], ['absolute-return', 'Total return'], ['market-order', 'Market order'], ['brokerage', 'Brokerage'], ['dp', 'DP charge'], ['stt', 'STT'], ['stamp', 'Stamp duty'], ['gst', 'GST'], ['expense-ratio', 'Expense ratio'], ['nav', 'NAV'], ['settlement', 'Settlement'], ['how-orders-work', 'How orders work']];
+
+/* ---------- Sheets ---------- */
+function sheetLens(key) {
+  if (key === 'glossary') {
+    return `<h2 tabindex="-1">Explain a term</h2><p class="muted">Tap a term to see what it means, using your own numbers where possible.</p><div class="rows">${GLOSSARY.map(([k, l]) => row('lens', k, l, '')).join('')}</div>`;
+  }
+  const t = lensTopic(key);
+  if (!t) return `<h2 tabindex="-1">Not available</h2><p>This explanation isn’t in the demo.</p>`;
+  let h = `<h2 tabindex="-1">${t.title}</h2><h3>What it is</h3><p>${t.what}</p>`;
+  if (t.raw) h += t.raw;
+  if (t.yours) h += `<h3>Your number</h3><div class="lens-num num">${t.yours}</div>`;
+  if (t.why) h += `<h3>Why it matters</h3><p>${t.why}</p>`;
+  if (t.example) h += `<details><summary>Show an example</summary><p>${t.example}</p></details>`;
+  if (key.startsWith('charges') || key.startsWith('roundtrip')) h += `<p class="foot">Estimated from a sample rate card for this demo.</p>`;
+  return h;
+}
+function sheetBYB(id) {
+  const st = DATA.stocks[id], shares = Math.floor(Number(state.buyAmt[id]) / st.price), V = shares * st.price;
+  const x = roundTrip(V);
+  let h = `<h2 tabindex="-1">Before you buy</h2>`;
+  h += `<h3>What you’re buying</h3><p class="muted">${shares} ${plural(shares, 'share', 'shares')} of ${st.name} at ${rs(st.price)} each, on the ${st.board === 'Main board' ? 'main board' : st.board}.</p>`;
+  h += `<h3>How much is going in</h3><p class="muted">Order value <strong class="num">${rs(V)}</strong>${Number(state.buyAmt[id]) - V >= 1 ? `. ${rs(Number(state.buyAmt[id]) - V)} of your ${rs(Number(state.buyAmt[id]))} stays in your balance, since shares come in whole numbers.` : '.'}</p>`;
+  h += `<h3>What it costs</h3>
+    <button type="button" class="cost-row" data-act="lens" data-arg="charges:${V}:buy"><span class="lab">Buy charges now</span><span class="v">≈ ${rs2(x.buy)}</span></button>
+    <button type="button" class="cost-row" data-act="lens" data-arg="charges:${V}:sell"><span class="lab">Charges when you sell later</span><span class="v">≈ ${rs2(x.sell)}</span></button>
+    <button type="button" class="cost-row" data-act="lens" data-arg="roundtrip:${V}"><span class="lab">Round trip</span><span class="v">≈ ${pctAbs(x.pct, 2)} of your order</span></button>
+    <p style="margin-top:10px">The price would need to rise about <strong>${pctAbs(x.pct)}</strong> before you break even — an estimate, from this demo’s sample rate card.</p>`;
+  h += `<h3>Getting your money back</h3><p>If you sell, the money is usually ready to withdraw the next working day. ${term('settlement', 'How settlement works')}</p>`;
+  h += `<h3>Worth knowing</h3>` + (st.flags.length
+    ? st.flags.map(f => `<button type="button" class="caution" data-act="lens" data-arg="${DATA.flags[f].topic}">${I.alert}<span>${DATA.flags[f].short}</span></button>`).join('')
+    : `<p class="muted">Nothing unusual flagged for this company in this demo.</p>`);
+  if (x.pct > 3) {
+    const x50 = roundTrip(50000);
+    h += `<details><summary>See how costs scale</summary>
+      <p>Charges are mostly fixed, so they’re a bigger share of a small order. On this ${rs(V)} order they come to about ${pctAbs(x.pct, 2)}. The same kind of charges on a ₹50,000 order of the same stock would be about ${pctAbs(x50.pct, 2)}.</p>
+      <p>A monthly amount in the sample index fund works differently: no brokerage or DP charge, just its ${DATA.fund.expense.toFixed(2)}% yearly expense ratio.</p>
+      <button type="button" class="link" data-act="goClose" data-arg="#/fund">See the sample index fund</button></details>`;
+  }
+  h += `<p class="foot">Estimated from a sample rate card for this demo.</p>
+    <div class="stack"><button type="button" class="btn btn-primary" data-act="buyConfirm" data-arg="${id}">Buy ${shares} ${plural(shares, 'share', 'shares')}</button>
+    <button type="button" class="btn btn-outline" data-act="closeSheet">Go back</button></div>`;
+  return h;
+}
+const CLAIMS = [
+  ['double', 'It will double'],
+  ['guaranteed', 'Guaranteed returns'],
+  ['insider', 'Insider news'],
+  ['listing', 'Quick listing gains']
+];
+function sheetHype(id) {
+  const st = DATA.stocks[id];
+  let h = `<h2 tabindex="-1">What did you hear about ${st.name}?</h2><p class="muted">Pick the closest match. We’ll separate what can be checked from what can’t.</p>`;
+  h += `<div role="group" aria-label="Claim">` + CLAIMS.map(([k, l]) => `<button type="button" class="quiz-opt" aria-pressed="${state.hypePick === k}" data-act="hypePick" data-arg="${k}">${l}</button>`).join('') + `</div>`;
+  if (state.hypePick) {
+    const facts = [`Price ${rs(st.price)}, listed on the ${st.board === 'Main board' ? 'main board' : st.board}.`];
+    if (st.flags.length) st.flags.forEach(f => facts.push(DATA.flags[f].short + '.'));
+    else facts.push('Not on any exchange watch list in this demo.');
+    facts.push('This is a sample company with made-up data.');
+    const cant = {
+      double: ['A price target is a prediction, not a fact. Nobody can check it today.'],
+      guaranteed: ['Market investments can’t guarantee returns.', 'SEBI-registered advisers are not allowed to guarantee returns.'],
+      insider: ['Claims of insider news can’t be checked. Trading on genuine insider information is against the law.'],
+      listing: ['Listing-day prices depend on demand on that day. Past listings don’t predict future ones.']
+    }[state.hypePick];
+    h += `<h3>What the data shows</h3><ul class="learn">${facts.map(f => `<li>${f}</li>`).join('')}</ul>`;
+    h += `<h3>What can’t be checked</h3><ul class="learn">${cant.map(f => `<li>${f}</li>`).join('')}</ul>`;
+    h += `<p class="foot">This check separates facts from predictions. It doesn’t tell you what to do.</p>`;
+  }
+  h += `<div class="stack"><button type="button" class="btn btn-outline" data-act="closeSheet">Done</button></div>`;
+  return h;
+}
+function sheetSell() {
+  const pr = state.pr, s = prSeries(pr), v = s.main[pr.step];
+  const val = pr.id === 'C' ? `${rs(v)} and ${rs(s.spread[pr.step])}` : rs(v);
+  return `<h2 tabindex="-1">Sell now?</h2><p>Selling locks in today’s value: <strong class="num">${val}</strong>. The replay ends here.</p>
+    <div class="stack"><button type="button" class="btn btn-primary" data-act="confirmSell">Sell at ${pr.id === 'C' ? 'today’s values' : rs(v)}</button>
+    <button type="button" class="btn btn-outline" data-act="closeSheet">Keep holding</button></div>`;
+}
+function renderSheet() {
+  const fab = document.querySelector('.reviewer-toggle');
+  if (fab) fab.style.visibility = sheets.length ? 'hidden' : '';
+  if (!sheets.length) { sheetRoot.innerHTML = ''; return; }
+  const top = sheets[sheets.length - 1];
+  const body = top.type === 'lens' ? sheetLens(top.arg) : top.type === 'byb' ? sheetBYB(top.arg) : top.type === 'hype' ? sheetHype(top.arg) : sheetSell();
+  const practice = phone.classList.contains('practice') && top.type !== 'byb' && top.type !== 'hype';
+  sheetRoot.innerHTML = `<div class="scrim" data-act="scrim"><div class="sheet" role="dialog" aria-modal="true" aria-label="Details">
+    <div class="sheet-head">${sheets.length > 1 ? `<button type="button" class="icon-btn" data-act="sheetBack" aria-label="Back">${I.back}</button>` : '<span></span>'}
+    <button type="button" class="icon-btn" data-act="closeAll" aria-label="Close">${I.close}</button></div>
+    ${practice ? '<p class="chip" style="margin:0 0 4px">Practice replay</p>' : ''}${body}</div></div>`;
+}
+function openSheet(type, arg, push) {
+  if (!sheets.length) sheetOpener = document.activeElement;
+  if (push || !sheets.length) sheets.push({ type, arg }); else sheets[sheets.length - 1] = { type, arg };
+  renderSheet();
+  const h = sheetRoot.querySelector('h2'); if (h) h.focus();
+  const sh = sheetRoot.querySelector('.sheet'); if (sh) sh.scrollTop = 0;
+}
+function closeSheets() {
+  sheets = []; renderSheet();
+  if (sheetOpener && document.body.contains(sheetOpener)) sheetOpener.focus();
+  sheetOpener = null;
+}
+function rerenderSheetKeepScroll() {
+  const sh = sheetRoot.querySelector('.sheet'); const st = sh ? sh.scrollTop : 0;
+  const key = captureFocus(sheetRoot);
+  renderSheet();
+  const n = sheetRoot.querySelector('.sheet'); if (n) n.scrollTop = st;
+  restoreFocus(sheetRoot, key);
+}
+
+/* ---------- Screens ---------- */
+function trackerCard() {
+  let out = '';
+  if (state.order) {
+    const st = DATA.stocks[state.order.id];
+    out += row('go', '#/ordered/' + st.id, `${state.order.shares} ${plural(state.order.shares, 'share', 'shares')} of ${st.name}`, 'Arrives in your demat next working day');
+  }
+  if (state.tracker) {
+    const sub = { normal: 'Fund house processing. Usually 2–3 working days.', delay: 'Taking longer than usual. Case #23842 is open.', action: 'We need something from you.', resolved: 'Credited to your bank.' }[state.tracker];
+    out += row('go', '#/money/track/23842', `Withdrawal of ${rs(Number(state.redeemAmt))}`, sub);
+  }
+  return out ? `<h2 class="section">In progress</h2><div class="rows">${out}</div>` : '';
+}
+function scrHome() {
+  const pending = (state.order ? 1 : 0) + (state.tracker && state.tracker !== 'resolved' ? 1 : 0);
+  if (state.account === 'new') {
+    const moneyLine = state.order
+      ? `<section class="hero"><p class="label">Your money</p><p class="big">${rs(state.order.value)} invested</p>
+         <p class="muted">${pending} ${plural(pending, 'thing', 'things')} in progress</p></section>`
+      : `<p class="welcome">Start by trying it out. Nothing here needs real money or prior experience.</p>`;
+    return { top: 'home', tabs: 'home', body: `
+      ${moneyLine}
+      ${trackerCard()}
+      <section class="spotlight">
+        <h1 class="page">Try a 3-minute practice replay</h1>
+        <p class="muted">Watch a simulated market scenario play out with ₹1,000 in practice money, then decide whether you’d have held or sold. Nothing here touches your real money.</p>
+        <button type="button" class="btn btn-primary" data-act="startPractice">Start practice replay</button>
+      </section>
+      <div class="quiet-actions">
+        ${row('go', '#/explore', 'Explore investing', 'Sample companies and a fund, from ' + rs(Math.min(...Object.values(DATA.stocks).map(x => x.price))))}
+      </div>
+      <button type="button" class="link" data-act="lens" data-arg="how-orders-work">How buying, selling and charges work</button>` };
+  }
+  const note = `<p class="note">Groww picked this layout from your account. Change it anytime in Profile.</p>`;
+  const summary = `<section class="hero"><p class="label">Your investments</p><p class="big">${rs(TOTAL_NOW)}</p>
+    <p class="muted">Invested ${rs(TOTAL_INV)}, <span class="${TOTAL_NOW >= TOTAL_INV ? 'gain' : 'loss'}">${moveText(TOTAL_NOW - TOTAL_INV, TOTAL_INV)}</span></p></section>`;
+  if (state.account === 'trader') {
+    return { top: 'home', tabs: 'home', body: `${summary}${note}
+      <div class="panel"><p class="mid" style="font-size:19px">Your usual trading home stays as it is today.</p>
+      <p class="muted" style="margin-top:6px">Traders keep their charts, positions and order tools. This demo focuses on the experience for new investors.</p></div>
+      ${trackerCard()}
+      <h2 class="section">Also here</h2><div class="rows">${row('go', '#/money', 'Your holdings', 'Tap any number to see how it’s worked out')}${row('startPractice', '', 'Practice replays', 'Includes an options scenario with a short risk check')}</div>` };
+  }
+  return { top: 'home', tabs: 'home', body: `${summary}${note}${trackerCard()}
+    <h2 class="section">Your next steps</h2><div class="rows">
+    ${row('go', '#/money', 'Your holdings', 'Tap any number to see how it’s worked out')}
+    ${row('go', '#/explore', 'Explore', 'Sample companies and an index fund')}
+    ${row('startPractice', '', 'Practice replays', 'Try something new in a simulated scenario first')}</div>` };
+}
+function scrExplore() {
+  const s = Object.values(DATA.stocks);
+  return { top: 'back', back: '#/home', title: 'Explore', body: `
+    <h1 class="page">Explore</h1><p class="muted">Every company here is a fictional sample for this demo. Share prices vary — you’ll always see the exact cost before you buy.</p>
+    <h2 class="section">Sample companies</h2><div class="rows">${s.map(x => row('go', '#/stock/' + x.id, x.name, x.sector, rs(x.price))).join('')}</div>
+    <h2 class="section">Sample fund</h2><div class="rows">${row('go', '#/fund', DATA.fund.name, 'Monthly investing from ₹500', 'NAV ₹' + DATA.fund.nav.toFixed(2))}</div>` };
+}
+function scrStock(id) {
+  const st = DATA.stocks[id]; if (!st) return scrNotFound();
+  const first = st.chart[0], chg = (st.price - first) / first * 100;
+  return { top: 'back', back: '#/explore', title: 'Sample company', body: `
+    <h1 class="page">${st.name}</h1>
+    <p class="big">${rs(st.price)}</p><p class="${chg >= 0 ? 'gain' : 'loss'}">${signedPct(chg)} over the period shown</p>
+    <div class="chart-wrap">${chart({ series: [{ values: st.chart, color: 'var(--brand)' }], upto: st.chart.length, label: 'Illustrative price chart for ' + st.name })}<p class="caption">Illustrative prices for this demo</p></div>
+    <div class="panel"><dl class="kv"><dt>Sector</dt><dd>${st.sector}</dd><dt>Listed on</dt><dd>${st.board}</dd></dl></div>
+    ${st.flags.length ? `<div class="caution static">${I.alert}<span>${st.flags.length} things are worth knowing about this stock. You’ll see them when you review your order.</span></div>` : ''}
+    <div class="stack"><button type="button" class="btn btn-primary" data-act="go" data-arg="#/buy/${id}">Buy</button></div>
+    <button type="button" class="link" data-act="hype" data-arg="${id}">I heard about this online</button>` };
+}
+function buySummary(id) {
+  const st = DATA.stocks[id], raw = state.buyAmt[id], a = Number(raw);
+  if (!raw || !Number.isFinite(a) || a <= 0) return { ok: false, html: `<p class="error">Enter an amount to buy.</p>` };
+  const shares = Math.floor(a / st.price);
+  if (shares < 1) return { ok: false, html: `<p class="error">Enter at least ${rs(st.price)} to buy 1 share.</p>` };
+  return { ok: true, html: `<p class="mid" style="margin-top:10px">${shares} ${plural(shares, 'share', 'shares')} at ${rs(st.price)}</p><p class="muted">Order value ${rs(shares * st.price)}. Shares come in whole numbers, so ${rs(a - shares * st.price)} stays in your balance.</p>` };
+}
+function scrBuy(id) {
+  const st = DATA.stocks[id]; if (!st) return scrNotFound();
+  const s = buySummary(id);
+  return { top: 'back', back: '#/stock/' + id, title: 'Buy ' + st.name, body: `
+    <h1 class="page">How much do you want to invest?</h1>
+    <div class="field"><label for="buy-amt">Amount</label><div class="money-input"><span>₹</span><input id="buy-amt" inputmode="numeric" data-input="buyAmt" data-arg="${id}" value="${esc(state.buyAmt[id])}" autocomplete="off"></div></div>
+    <div id="buy-summary" aria-live="polite">${s.html}</div>
+    <div class="panel"><dl class="kv"><dt>Order type</dt><dd>${term('market-order', 'Market order')}</dd><dt>Price now</dt><dd>${rs(st.price)}</dd></dl></div>
+    <div class="stack"><button type="button" class="btn btn-primary" id="review-btn" data-act="byb" data-arg="${id}" ${s.ok ? '' : 'disabled'}>Review order</button></div>` };
+}
+function scrOrdered(id) {
+  const o = state.order; const st = DATA.stocks[id];
+  if (!o || !st) return scrNotFound();
+  return { top: 'back', back: '#/home', title: 'Order placed', body: `
+    <div class="success">${I.checkBig}<span><strong>Order placed (demo)</strong><br>No real money moved.</span></div>
+    <h1 class="page" style="margin-top:18px">You bought ${o.shares} ${plural(o.shares, 'share', 'shares')} of ${st.name}</h1>
+    <div class="panel"><dl class="kv"><dt>Price</dt><dd>${rs(st.price)}</dd><dt>Order value</dt><dd>${rs(o.value)}</dd>
+    <dt>${term('charges:' + o.value + ':buy', 'Estimated charges')}</dt><dd>${rs2(o.charges)}</dd></dl></div>
+    <ol class="timeline"><li class="done"><span class="dot">${I.check}</span><span class="t">Order placed</span><span class="who">Groww</span></li>
+    <li class="done"><span class="dot">${I.check}</span><span class="t">Matched on the exchange</span><span class="who">Stock exchange</span></li>
+    <li class="now"><span class="dot"></span><span class="t">Shares reach your demat account</span><span class="who">Next working day. ${term('settlement', 'What is settlement?')}</span></li></ol>
+    <div class="stack"><button type="button" class="btn btn-primary" data-act="go" data-arg="#/home">Go to Home</button></div>` };
+}
+function scrFund() {
+  const f = DATA.fund;
+  return { top: 'back', back: '#/explore', title: 'Sample fund', body: `
+    <h1 class="page">${f.name}</h1><p class="muted">Tracks the 50 largest listed companies. Fictional fund for this demo.</p>
+    <div class="panel"><dl class="kv"><dt>${term('nav', 'NAV')}</dt><dd>₹${f.nav.toFixed(2)}</dd><dt>${term('expense-ratio', 'Expense ratio')}</dt><dd>${f.expense.toFixed(2)}% a year</dd>
+    <dt>Lock-in</dt><dd>None</dd><dt>${term('exit-load', 'Exit load')}</dt><dd>None</dd><dt>Brokerage</dt><dd>₹0</dd></dl></div>
+    <p class="note">Monthly investing in a fund has no brokerage and no DP charge. The yearly expense ratio is the main cost.</p>
+    <p class="muted" style="margin-top:16px">Setting up a monthly investment isn’t part of this demo.</p>
+    <button type="button" class="link" data-act="go" data-arg="#/stock/kiran">See how buying a sample stock works</button>` };
+}
+function scrPractice() {
+  const R = DATA.replays;
+  return { top: 'title', practice: true, tabs: 'practice', title: 'Practice', body: `
+    <h1 class="page">Try before you invest</h1>
+    <p class="muted">Run a simulated market scenario with the amount you’d really invest, then decide what you’d do. Nothing here touches real money.</p>
+    <div class="rows" style="margin-top:16px">
+      ${row('startReplay', 'A', R.A.title, 'See an unrealised loss play out, then decide')}
+      ${row('startReplay', 'B', R.B.title, 'Charges on a small order, step by step')}
+      ${row('startReplay', 'C', R.C.title, 'What happens when one company has bad news')}
+    </div>
+    <h2 class="section">Higher risk</h2>
+    <div class="rows">${row('startReplay', 'D', 'Try a high-risk trade (options)', state.risk.done ? 'Risk warning seen' : 'Starts with a short warning')}</div>
+    <p class="note">Every scenario and company here is fictional and made up for this demo — none of it is real market history.</p>` };
+}
+function scrAmount(id) {
+  const R = DATA.replays[id]; if (!R) return scrNotFound();
+  if (id === 'B') {
+    return { top: 'back', practice: true, back: '#/practice', title: R.short, body: `
+      <h1 class="page">${R.title}</h1>
+      <div class="panel"><p style="margin:0">This scenario uses 1 share of Kiran Foods (${rs(KIRAN_PRICE)}, today's Explore price) so you can see real charges on a small order.</p></div>
+      <div class="stack"><button type="button" class="btn btn-primary" data-act="toOrder" data-arg="B">Continue</button></div>` };
+  }
+  const c = state.amt.choice;
+  const opts = [500, 1000, 2000].map(v => `<button type="button" class="choice" aria-pressed="${c === v}" data-act="amtChoice" data-arg="${v}">${rs(v)}</button>`).join('')
+    + `<button type="button" class="choice" aria-pressed="${c === 'custom'}" data-act="amtChoice" data-arg="custom">Custom</button>`;
+  const a = amountFromChoice();
+  return { top: 'back', practice: true, back: '#/practice', title: R.short, body: `
+    <h1 class="page">How much would you actually invest?</h1>
+    <p class="muted">Using your real amount keeps the lesson realistic.</p>
+    <div class="chips" role="group" aria-label="Practice amount">${opts}</div>
+    ${c === 'custom' ? `<div class="field"><label for="custom-amt">Custom amount</label><div class="money-input"><span>₹</span><input id="custom-amt" inputmode="numeric" data-input="customAmt" value="${esc(state.amt.custom)}" autocomplete="off"></div></div>` : ''}
+    <div id="amt-note" aria-live="polite">${amtNote(id, a)}</div>
+    <div class="stack"><button type="button" class="btn btn-primary" id="amt-continue" data-act="toOrder" data-arg="${id}" ${a.ok ? '' : 'disabled'}>Continue</button></div>` };
+}
+function amtNote(id, a) {
+  if (!a.ok) return `<p class="error">${a.msg}</p>`;
+  if (id === 'A') { const u = Math.floor(a.v / 100); return `<p class="note">${rs(a.v)} buys ${u} ${plural(u, 'unit', 'units')} of the Sample Market ETF at ₹100 each${u * 100 !== a.v ? `, so ${rs(u * 100)} is invested` : ''}.</p>`; }
+  if (id === 'C') return `<p class="note">You’ll see ${rs(a.v)} in one company next to ${rs(a.v)} spread across five.</p>`;
+  if (id === 'D') return `<p class="note">In this replay, ${rs(a.v)} is the option premium you pay for 1 ${term('lot-size', 'lot')}.</p>`;
+  return '';
+}
+function scrOrder(id) {
+  const pr = state.pr;
+  if (!pr || pr.id !== id) return scrPracticeMissing();
+  let detail, charges;
+  if (id === 'A') { detail = `<dt>Buying</dt><dd>${pr.units} ${plural(pr.units, 'unit', 'units')}</dd><dt>Of</dt><dd>Sample Market ETF</dd><dt>Price</dt><dd>₹100</dd>`; charges = estimateCharges(pr.invested, 'buy').total; }
+  if (id === 'B') { detail = `<dt>Buying</dt><dd>1 share</dd><dt>Of</dt><dd>Kiran Foods Ltd</dd><dt>Price</dt><dd>${rs(KIRAN_PRICE)}</dd>`; charges = estimateCharges(KIRAN_PRICE, 'buy').total; }
+  if (id === 'C') { detail = `<dt>Portfolio 1</dt><dd>${rs(pr.invested)} in Orbit Retail, 1 order</dd><dt>Portfolio 2</dt><dd>${rs(pr.invested)} across 5 companies, 5 orders</dd>`; }
+  if (id === 'D') { detail = `<dt>Buying</dt><dd>1 lot</dd><dt>Of</dt><dd>Sample index call option</dd><dt>Premium</dt><dd>${rs(pr.invested)}</dd>`; }
+  let chargeRows = '';
+  if (id === 'A' || id === 'B') chargeRows = `<dt>${term('charges:' + pr.invested + ':buy', 'Estimated charges')}</dt><dd>${rs2(charges)}</dd><dt class="total">Total</dt><dd class="total">${rs2(r2(pr.invested + charges))}</dd>`;
+  if (id === 'C') { const one = estimateCharges(pr.invested, 'buy').total, five = r2(5 * estimateCharges(pr.invested / 5, 'buy').total);
+    chargeRows = `<dt>${term('charges:' + pr.invested + ':buy', 'Charges, portfolio 1')}</dt><dd>${rs2(one)}</dd><dt>Charges, portfolio 2 (5 orders)</dt><dd>${rs2(five)}</dd>`; }
+  if (id === 'D') chargeRows = `<dt>Charges</dt><dd>Not modelled here</dd>`;
+  return { top: 'back', practice: true, back: id === 'B' ? '#/practice' : '#/practice/amount/' + id, title: DATA.replays[id].short, body: `
+    <h1 class="page">Practice order</h1>
+    <div class="panel"><dl class="kv">${detail}<dt>Order type</dt><dd>${term('market-order', 'Market order')}</dd>${chargeRows}</dl></div>
+    ${id === 'C' ? `<p class="note">Five small orders pay the minimum brokerage five times.</p>` : ''}
+    ${pr.placed ? `<div class="panel confirm" role="status"><p style="margin:0"><strong>Practice order placed.</strong> No real money moved.</p></div>
+      <div class="stack"><button type="button" class="btn btn-primary" data-act="go" data-arg="#/practice/play/${id}">Start replay</button></div>`
+    : `<div class="stack"><button type="button" class="btn btn-primary" data-act="placePractice">Place practice order</button></div>`}` };
+}
+function scrPlay(id) {
+  const pr = state.pr;
+  if (!pr || pr.id !== id || !pr.placed) return scrPracticeMissing();
+  const R = DATA.replays[id], s = prSeries(pr), i = pr.step, last = prLast(pr), v = s.main[i];
+  const series = [{ values: s.main, color: 'var(--practice)' }];
+  if (s.spread) series.push({ values: s.spread, color: 'var(--practice-2)', dashed: true });
+  const ev = R.events[i];
+  let valueBlock;
+  if (id === 'C') {
+    valueBlock = `<div class="legend" aria-live="polite">
+      <div><span>One company (solid line)</span><strong class="num">${rs(v)}</strong></div>
+      <div class="muted"><span></span><span class="${v < pr.invested ? 'loss' : 'gain'}">${moveText(v - pr.invested, pr.invested)}</span></div>
+      <div><span>Five companies (dashed line)</span><strong class="num">${rs(s.spread[i])}</strong></div>
+      <div class="muted"><span></span><span class="${s.spread[i] < pr.invested ? 'loss' : 'gain'}">${moveText(s.spread[i] - pr.invested, pr.invested)}</span></div></div>`;
+  } else {
+    valueBlock = `<div aria-live="polite"><p class="big">${rs(v)}</p><p class="${v < pr.invested ? 'loss' : v > pr.invested ? 'gain' : 'muted'}"><strong>Your ${id === 'D' ? 'option is' : 'investment is'} ${moveText(v - pr.invested, pr.invested)}</strong></p></div>`;
+  }
+  const nextLabel = id === 'A' ? 'Next day' : 'Move ahead';
+  const advanceBtn = id === 'A'
+    ? `<button type="button" class="btn btn-primary" data-act="${pr.auto ? 'pause' : 'next'}">${pr.auto ? 'Pause' : nextLabel}</button>`
+    : `<button type="button" class="btn btn-primary" data-act="next">${nextLabel}</button>`;
+  const controlsHtml = i < last ? `
+    <div class="stack play-controls">
+      ${advanceBtn}
+      <button type="button" class="btn btn-outline" data-act="lens" data-arg="why-move">Why?</button>
+    </div>
+    <div class="play-controls-quiet">
+      <button type="button" class="btn-ghost" data-act="sell">${id === 'C' ? 'Sell both now' : 'Sell now'}</button>
+      <button type="button" class="link" data-act="skip">Skip to end</button>
+    </div>`
+    : `<div class="stack"><button type="button" class="btn btn-primary" data-act="go" data-arg="#/practice/debrief/${id}">See what happened</button>
+       <button type="button" class="btn btn-outline" data-act="lens" data-arg="why-move">Why?</button></div>`;
+  return { top: 'back', practice: true, back: '#/practice', title: R.short, body: `
+    <p class="steps">${R.labels[i]} of the replay</p>
+    ${valueBlock}
+    <div class="chart-wrap">${chart({ series, upto: i, baseline: pr.invested, label: 'Replay value chart up to ' + R.labels[i] })}<p class="caption">Dotted line: what you put in (${rs(pr.invested)})</p></div>
+    ${ev ? `<p class="event">${ev}</p>` : ''}
+    ${controlsHtml}` };
+}
+function scrDebrief(id) {
+  const pr = state.pr;
+  if (!pr || pr.id !== id || !pr.placed) return scrPracticeMissing();
+  const R = DATA.replays[id], s = prSeries(pr), ex = prExit(pr), sold = pr.soldAt != null;
+  const upto = s.main.slice(0, ex + 1), low = Math.min(...upto), end = s.main[ex];
+  const ch = prCharges(pr, ex);
+  let stats;
+  if (id === 'C') {
+    const sp = s.spread.slice(0, ex + 1), lowS = Math.min(...sp), endS = s.spread[ex];
+    stats = `<dt>Each portfolio started with</dt><dd>${rs(pr.invested)}</dd>
+      <dt>One company, lowest</dt><dd>${rs(low)}</dd><dt>One company, ${sold ? 'sold at' : 'final'}</dt><dd>${rs(end)}</dd>
+      <dt>Five companies, lowest</dt><dd>${rs(lowS)}</dd><dt>Five companies, ${sold ? 'sold at' : 'final'}</dt><dd>${rs(endS)}</dd>
+      <dt>Estimated charges, one company</dt><dd>${rs2(ch.one)}</dd>
+      <dt>Estimated charges, five companies</dt><dd>${rs2(ch.five)}</dd>`;
+  } else if (id === 'B') {
+    const net = r2(end - KIRAN_PRICE - ch);
+    stats = `<dt>You bought</dt><dd>1 share at ${rs(KIRAN_PRICE)}</dd><dt>${sold ? 'You sold at' : 'Final price'}</dt><dd>${rs(end)}</dd>
+      <dt>Price change</dt><dd>${signedPct((end - KIRAN_PRICE) / KIRAN_PRICE * 100)}</dd>
+      <dt>Estimated real-world charges</dt><dd>${rs2(ch)}</dd>
+      <dt class="total">After charges</dt><dd class="total ${net < 0 ? 'loss' : 'gain'}">${net < 0 ? '−' : '+'}${rs2(Math.abs(net)).replace('−', '')}</dd>`;
+  } else {
+    const fall = (low / pr.invested - 1) * 100;
+    stats = `<dt>You ${id === 'D' ? 'paid' : 'invested'}</dt><dd>${rs(pr.invested)}</dd><dt>Lowest value</dt><dd>${rs(low)}</dd>
+      <dt>${sold ? 'You sold at' : 'Final value'}</dt><dd>${rs(end)}</dd>
+      <dt>Lowest unrealised loss along the way</dt><dd class="${fall < 0 ? 'loss' : ''}">${fall < 0 ? signedPct(fall, 0) : 'None'}</dd>
+      <dt>${id === 'D' ? 'Charges' : 'Estimated real-world charges'}</dt><dd>${ch == null ? 'Not modelled here' : rs2(ch)}</dd>`;
+  }
+  const q = R.quiz, pick = pr.quizPick;
+  const quiz = `<h2 class="section">Quick check</h2><p>${q.q}</p><div role="group" aria-label="Answer">
+    ${q.opts.map((o, k) => `<button type="button" class="quiz-opt ${pick === k ? (k === q.right ? 'right' : 'wrong') : ''}" aria-pressed="${pick === k}" data-act="quiz" data-arg="${k}" ${pick === q.right && pick !== k ? 'disabled' : ''}>${o}</button>`).join('')}</div>
+    ${pick != null ? `<p class="feedback" role="status"><strong>${pick === q.right ? 'That’s it.' : 'Not quite.'}</strong> ${q.why[pick]}${pick !== q.right ? ' Try another answer.' : ''}</p>` : ''}`;
+  return { top: 'back', practice: true, back: '#/practice', title: R.short, body: `
+    <h1 class="page">What happened</h1>
+    ${sold ? `<p class="muted">You sold at ${R.labels[ex].toLowerCase()}.</p>` : ''}
+    <div class="panel"><dl class="kv">${stats}</dl>${id === 'D' ? '' : '<p class="foot" style="margin-bottom:0">Charges cover buying at the start and selling at the end, from the sample rate card.</p>'}</div>
+    <h2 class="section">What you learned</h2><ul class="learn">${R.learned.map(l => `<li>${l}</li>`).join('')}</ul>
+    ${quiz}
+    ${id === 'D' ? `<div class="panel" style="margin-top:18px"><p style="margin:0 0 6px"><strong>Turning this on with real money</strong></p><p class="muted" style="margin:0">Real-money options trading on Groww needs a separate risk profile and segment activation first. You can also set your own daily loss limit with Safe Exit — it applies to real trades, not practice.</p></div>` : ''}
+    <div class="pair" style="margin-top:22px"><button type="button" class="btn btn-even" data-act="go" data-arg="#/practice">Try another replay</button>
+    <button type="button" class="btn btn-even" data-act="go" data-arg="#/explore">Explore real investing</button></div>` };
+}
+function scrRisk() {
+  const body = `<h1 class="page">Options can lose most or all of their value quickly.</h1>
+    <p>Part of an option’s price is ${term('time-value', 'time value')}, which shrinks every day until expiry — even if nothing else changes.</p>
+    <p>Options trade in ${term('lot-size', 'lots')}, so even the smallest trade can put a large amount at risk.</p>
+    <p class="muted">This is practice money. You’ll place a practice order, watch a scenario play out, and see exactly what happened at the end.</p>
+    <div class="stack"><button type="button" class="btn btn-primary" data-act="riskContinue">Continue to practice</button></div>`;
+  return { top: 'back', practice: true, back: '#/practice', title: 'Before an options scenario', body };
+}
+function scrMoney() {
+  if (state.account === 'new') {
+    return { top: 'title', tabs: 'money', title: 'Your money', body: `<h1 class="page">Your money</h1>
+      ${trackerCard()}
+      ${state.order ? '' : `<div class="empty"><p class="mid" style="font-size:20px">Nothing here yet.</p><p class="muted">Try a practice replay, or explore sample companies and a fund.</p></div>`}
+      <div class="stack"><button type="button" class="btn btn-primary" data-act="startPractice">Try a practice replay</button>
+      <button type="button" class="btn btn-outline" data-act="go" data-arg="#/explore">Explore investing</button></div>` };
+  }
+  return { top: 'title', tabs: 'money', title: 'Your money', body: `
+    <h1 class="page">Your money</h1>
+    <section class="hero"><p class="label">Current value</p><p class="big">${rs(TOTAL_NOW)}</p><p class="muted">Invested ${rs(TOTAL_INV)}</p></section>
+    ${trackerCard()}
+    <h2 class="section">Your holdings</h2>
+    <div class="panel"><p style="margin:0 0 8px"><strong>Kiran Foods Ltd</strong> <span class="chip">Sample</span></p>
+      <dl class="kv"><dt>Shares</dt><dd>${K.shares}</dd><dt>${term('avg-price', 'Average price')}</dt><dd>${rs(K.avg)}</dd>
+      <dt>Worth now</dt><dd>${rs(K_NOW)}</dd><dt>P&amp;L</dt><dd class="loss">${term('pnl-kiran', rs(K_PNL))}</dd></dl></div>
+    <div class="panel"><p style="margin:0 0 8px"><strong>${DATA.fund.name}</strong> <span class="chip">Sample</span></p>
+      <dl class="kv"><dt>Invested</dt><dd>${rs(FUND.invested)}</dd><dt>Worth now</dt><dd>${rs(FUND.current)}</dd>
+      <dt>${term('absolute-return', 'Total return')}</dt><dd class="gain">${signedPct(FUND_ABS)}</dd><dt>${term('xirr', 'XIRR')}</dt><dd class="gain">${signedPct(FUND_XIRR)}</dd></dl></div>
+    <p class="note">Tap any underlined number to see how it’s worked out.</p>
+    <div class="stack"><button type="button" class="btn btn-outline" data-act="go" data-arg="#/money/redeem">Withdraw from ${DATA.fund.name}</button></div>` };
+}
+function redeemCheck() {
+  const raw = state.redeemAmt, v = Number(raw);
+  if (!raw || !Number.isFinite(v)) return { ok: false, msg: 'Enter an amount to withdraw.' };
+  if (v < 100 || v > FUND.current) return { ok: false, msg: `Enter an amount between ₹100 and ${rs(FUND.current)}.` };
+  return { ok: true, v: Math.floor(v) };
+}
+function scrRedeem() {
+  if (state.account === 'new') state.account = 'investor';
+  const c = redeemCheck();
+  return { top: 'back', back: '#/money', title: 'Withdraw', body: `
+    <h1 class="page">Withdraw from ${DATA.fund.name}</h1>
+    <p class="muted">Available: ${rs(FUND.current)}</p>
+    <div class="field"><label for="redeem-amt">Amount</label><div class="money-input"><span>₹</span><input id="redeem-amt" inputmode="numeric" data-input="redeemAmt" value="${esc(state.redeemAmt)}" autocomplete="off"></div></div>
+    <div id="redeem-note" aria-live="polite">${c.ok ? '' : `<p class="error">${c.msg}</p>`}</div>
+    <div class="panel"><dl class="kv"><dt>${term('exit-load', 'Exit load')}</dt><dd>None</dd><dt>Goes to</dt><dd>Bank ending 4417</dd><dt>Usually arrives</dt><dd>In 2–3 working days</dd></dl></div>
+    <div class="stack"><button type="button" class="btn btn-primary" id="redeem-btn" data-act="redeem" ${c.ok ? '' : 'disabled'}>${c.ok ? 'Redeem ' + rs(c.v) : 'Redeem'}</button></div>` };
+}
+function scrTrack() {
+  if (!state.tracker) return { top: 'back', back: '#/money', title: 'Withdrawal', body: `<div class="empty"><p class="mid" style="font-size:20px">No withdrawal in progress.</p><p class="muted">Start one from Your money.</p></div><div class="stack"><button type="button" class="btn btn-primary" data-act="go" data-arg="#/money/redeem">Withdraw from fund</button></div>` };
+  const t = state.tracker, amt = rs(Number(state.redeemAmt));
+  const steps = [['Requested', 'Groww'], ['Sent to fund house', 'Groww'], ['Fund house processing', 'Fund house'], ['Money to your bank', 'Your bank']];
+  const cls = i => {
+    if (t === 'resolved') return 'done';
+    if (i < 2) return 'done';
+    if (i === 2) return t === 'normal' ? 'now' : 'late';
+    return '';
+  };
+  const tl = `<ol class="timeline">${steps.map(([l, w], i) => `<li class="${cls(i)}"><span class="dot">${cls(i) === 'done' ? I.check : ''}</span><span class="t">${l}</span><span class="who">${w}${cls(i) === 'now' ? ', in progress' : cls(i) === 'late' ? (t === 'action' ? ', waiting on you' : ', delayed') : ''}</span></li>`).join('')}</ol>`;
+  let top = '', after = '';
+  if (t === 'normal') {
+    after = `<div class="panel"><p style="margin:0"><strong>Usually 2–3 working days.</strong></p><p class="muted" style="margin:4px 0 0">Equity fund withdrawals depend on the fund house and your bank. We’ll notify you only if something needs your attention.</p></div>`;
+  } else if (t === 'delay') {
+    top = `<div class="caution static" role="status">${I.alert}<span><strong>This is taking longer than usual.</strong> We’ve opened case #23842 for you.</span></div>`;
+    after = `<div class="panel"><p style="margin:0 0 8px"><strong>Case #23842</strong></p><dl class="kv"><dt>Handled by</dt><dd>A support agent</dd><dt>Last update</dt><dd>2:14 PM</dd><dt>Typical response time</dt><dd>A few hours</dd></dl></div>
+      <details><summary>What’s happening</summary><p>The fund house hasn’t confirmed your withdrawal yet. Your support agent is following up with them. You don’t need to do anything — we’ll notify you the moment the status changes.</p></details>`;
+  } else if (t === 'action') {
+    top = `<div class="caution static" role="status">${I.alert}<span><strong>We need something from you.</strong> The name on your bank account doesn’t match your Groww account.</span></div>`;
+    after = `<div class="stack"><button type="button" class="btn btn-primary" data-act="fixBankDetails">Update bank details</button></div>`;
+  } else {
+    top = `<div class="success" role="status">${I.checkBig}<span><strong>${amt} credited to your bank ending 4417.</strong></span></div>`;
+    const fb = state.trackerFeedback;
+    after = `<div class="panel"><p style="margin:0 0 6px"><strong>Summary</strong></p><p class="muted" style="margin:0">Your withdrawal of ${amt} from ${DATA.fund.name} is complete. Case #23842 is closed.</p></div>
+      <h2 class="section" style="font-size:17px">Did this solve it?</h2>
+      ${fb === 'yes' ? '<p role="status">Thanks. Case #23842 is closed.</p>' : fb === 'no' ? '<p role="status">Case reopened. We’ll notify you when the status changes.</p>'
+      : `<div class="pair"><button type="button" class="btn btn-even" data-act="feedback" data-arg="yes">Yes</button><button type="button" class="btn btn-even" data-act="feedback" data-arg="no">No</button></div>`}`;
+  }
+  return { top: 'back', back: '#/money', title: 'Withdrawal ' + amt, body: `<h1 class="page">Withdrawal of ${amt}</h1><p class="muted">From ${DATA.fund.name}</p>${top}${tl}${after}` };
+}
+function scrPracticeMissing() {
+  return { top: 'back', practice: true, back: '#/practice', title: 'Practice', body: `<div class="empty"><p class="mid" style="font-size:20px">This replay hasn’t started.</p><p class="muted">Pick a replay to begin.</p></div><div class="stack"><button type="button" class="btn btn-primary" data-act="go" data-arg="#/practice">Choose a replay</button></div>` };
+}
+function scrNotFound() {
+  return { top: 'back', back: '#/home', title: 'Not found', body: `<div class="empty"><p class="mid" style="font-size:20px">This page isn’t in the demo.</p></div><div class="stack"><button type="button" class="btn btn-primary" data-act="go" data-arg="#/home">Go to Home</button></div>` };
+}
+
+function route() {
+  const p = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
+  const [a, b, c] = p;
+  if (!a || a === 'home') return scrHome();
+  if (a === 'explore') return scrExplore();
+  if (a === 'stock') return scrStock(b);
+  if (a === 'buy') return scrBuy(b);
+  if (a === 'ordered') return scrOrdered(b);
+  if (a === 'fund') return scrFund();
+  if (a === 'practice') {
+    if (!b) return scrPractice();
+    if (b === 'amount') return scrAmount(c);
+    if (b === 'order') return scrOrder(c);
+    if (b === 'play') return scrPlay(c);
+    if (b === 'debrief') return scrDebrief(c);
+    if (b === 'risk') return scrRisk();
+  }
+  if (a === 'money') {
+    if (!b) return scrMoney();
+    if (b === 'redeem') return scrRedeem();
+    if (b === 'track') return scrTrack();
+  }
+  return scrNotFound();
+}
+
+/* ---------- Render ---------- */
+function captureFocus(root) {
+  const el = document.activeElement;
+  if (!el || !root.contains(el)) return null;
+  return { act: el.getAttribute('data-act'), arg: el.getAttribute('data-arg'), id: el.id };
+}
+function restoreFocus(root, k) {
+  if (!k) return;
+  let el = k.id ? root.querySelector('#' + CSS.escape(k.id)) : null;
+  if (!el && k.act) el = root.querySelector(`[data-act="${k.act}"]${k.arg != null ? `[data-arg="${CSS.escape(k.arg)}"]` : ''}`);
+  if (el && !el.disabled) el.focus({ preventScroll: true });
+}
+function renderTabs(active) {
+  if (!active) { tabbar.hidden = true; return; }
+  tabbar.hidden = false;
+  const tabs = [['home', '#/home', 'Home', I.home], ['practice', '#/practice', 'Practice', I.grid], ['money', '#/money', 'Money', I.wallet]];
+  tabbar.innerHTML = tabs.map(([k, h, l, ic]) => `<button type="button" class="tab" data-act="${k === 'practice' ? 'startPractice' : 'go'}" data-arg="${h}" ${k === active ? 'aria-current="page"' : ''}>${ic}<span>${l}</span></button>`).join('');
+}
+function render() {
+  clearTimeout(timer);
+  const key = location.hash || '#/home';
+  const same = key === lastRoute;
+  const scroll = same ? appEl.scrollTop : 0;
+  const focusKey = same ? captureFocus(appEl) : null;
+  const s = route();
+  phone.classList.toggle('practice', !!s.practice);
+  let head = '';
+  if (s.top === 'home') head = `<header class="topbar home"><span class="wordmark">Groww with you</span><button type="button" class="icon-btn" data-act="lens" data-arg="glossary" aria-label="Explain a term">${I.help}</button></header>`;
+  else if (s.top === 'back') head = `<header class="topbar"><button type="button" class="icon-btn" data-act="go" data-arg="${s.back}" aria-label="Go back">${I.back}</button><p class="topbar-title">${esc(s.title)}</p></header>`;
+  else head = `<header class="topbar home"><span class="wordmark">Groww with you</span><button type="button" class="icon-btn" data-act="lens" data-arg="glossary" aria-label="Explain a term">${I.help}</button></header>`;
+  const bar = s.practice ? `<div class="practice-bar" role="note">${I.grid}<div><strong>Practice</strong><span>Simulated scenario. No real money.</span></div></div>` : '';
+  appEl.innerHTML = bar + head + `<main class="content" id="main">${s.body}</main>`;
+  renderTabs(s.tabs);
+  appEl.scrollTop = scroll;
+  if (same) restoreFocus(appEl, focusKey);
+  else { const h = appEl.querySelector('h1'); if (h && lastRoute) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); } }
+  lastRoute = key;
+  renderControls();
+  const pr = state.pr;
+  if (pr && pr.auto && key === '#/practice/play/' + pr.id && pr.placed && pr.step < prLast(pr) && !sheets.length) {
+    timer = setTimeout(() => { pr.step++; if (pr.step >= prLast(pr)) pr.auto = false; render(); }, 700);
+  }
+}
+
+/* ---------- Demo controls ---------- */
+const TOUR = [
+  ['Start Home (new investor)', 'tourHome'],
+  ['Practice replays', 'tourPractice'],
+  ['Before You Buy (₹500 order)', 'tourBuy'],
+  ['Hype Check (flagged stock)', 'tourHype'],
+  ['Money Lens (investor holdings)', 'tourLens'],
+  ['Money Tracker (withdrawal)', 'tourTrack'],
+  ['Risk Check (options replay)', 'tourRisk']
+];
+function renderControls() {
+  const acc = state.account, t = state.tracker;
+  controls.innerHTML = `
+    <button type="button" class="icon-btn close-controls" data-act="toggleControls" aria-label="Close reviewer controls">${I.close}</button>
+    <h2>Reviewer tools</h2>
+    <p class="muted" style="margin:0">Not part of the product. Jump to any screen or state for review. All companies, prices and numbers are fictional.</p>
+    <h3>Guided tour</h3>
+    <ol class="tour">${TOUR.map(([l, a]) => `<li><button type="button" data-act="${a}">${l}</button></li>`).join('')}</ol>
+    <h3>Account state</h3>
+    <div class="seg" role="group" aria-label="Account state">${[['new', 'New'], ['investor', 'Investor'], ['trader', 'Trader']].map(([k, l]) => `<button type="button" aria-pressed="${acc === k}" data-act="setAccount" data-arg="${k}">${l}</button>`).join('')}</div>
+    <h3>Withdrawal tracker</h3>
+    <div class="seg" role="group" aria-label="Tracker state">${[['normal', 'Normal'], ['delay', 'Simulate delay'], ['action', 'Needs action'], ['resolved', 'Resolve']].map(([k, l]) => `<button type="button" aria-pressed="${t === k}" data-act="setTracker" data-arg="${k}">${l}</button>`).join('')}</div>
+    <h3>Start over</h3>
+    <div class="seg"><button type="button" data-act="reset">Reset demo</button></div>`;
+}
+function closeControlsIfMobile() {
+  controls.classList.remove('open');
+  document.querySelector('.reviewer-toggle').setAttribute('aria-expanded', 'false');
+}
+
+/* ---------- Events ---------- */
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-act]');
+  if (!el) return;
+  const act = el.getAttribute('data-act'), arg = el.getAttribute('data-arg');
+  if (act === 'scrim') { if (e.target === el) closeSheets(); return; }
+  switch (act) {
+    case 'go': closeSheets(); go(arg); break;
+    case 'goClose': closeSheets(); go(arg); break;
+    case 'toast': toast(arg); break;
+    case 'lens': if (!sheets.length && state.pr && state.pr.auto) { state.pr.auto = false; render(); } openSheet('lens', arg, sheets.length > 0); break;
+    case 'byb': openSheet('byb', arg, false); break;
+    case 'hype': state.hypePick = null; openSheet('hype', arg, false); break;
+    case 'hypePick': state.hypePick = arg; rerenderSheetKeepScroll(); break;
+    case 'sheetBack': sheets.pop(); renderSheet(); { const h = sheetRoot.querySelector('h2'); if (h) h.focus(); } break;
+    case 'closeSheet': case 'closeAll': closeSheets(); render(); break;
+    case 'buyConfirm': {
+      const st = DATA.stocks[arg], shares = Math.floor(Number(state.buyAmt[arg]) / st.price), V = shares * st.price;
+      state.order = { id: arg, shares, value: V, charges: estimateCharges(V, 'buy').total };
+      sheets = []; renderSheet(); go('#/ordered/' + arg); break;
+    }
+    case 'startPractice': closeSheets(); go('#/practice'); break;
+    case 'startReplay':
+      state.amt = { choice: 1000, custom: '' };
+      if (arg === 'D' && !state.risk.done) go('#/practice/risk');
+      else go('#/practice/amount/' + arg);
+      break;
+    case 'amtChoice': state.amt.choice = arg === 'custom' ? 'custom' : Number(arg); render();
+      if (arg === 'custom') { const i = document.getElementById('custom-amt'); if (i) i.focus(); }
+      break;
+    case 'toOrder': { const pr = buildPr(arg); if (!pr) return; state.pr = pr; go('#/practice/order/' + arg); break; }
+    case 'placePractice': if (state.pr) { state.pr.placed = true; render(); const b = appEl.querySelector('[data-act="go"][data-arg^="#/practice/play"]'); if (b) b.focus(); } break;
+    case 'next': if (state.pr) { state.pr.auto = false; state.pr.step = Math.min(state.pr.step + 1, prLast(state.pr)); render(); } break;
+    case 'pause': if (state.pr) { state.pr.auto = false; render(); } break;
+    case 'skip': if (state.pr) { state.pr.auto = false; state.pr.step = prLast(state.pr); render(); } break;
+    case 'sell': if (state.pr) { state.pr.auto = false; render(); openSheet('sell', '', false); } break;
+    case 'confirmSell': if (state.pr) { state.pr.soldAt = state.pr.step; sheets = []; renderSheet(); go('#/practice/debrief/' + state.pr.id); } break;
+    case 'quiz': if (state.pr) { state.pr.quizPick = Number(arg); render(); } break;
+    case 'riskContinue': state.risk.done = true; state.amt = { choice: 1000, custom: '' }; go('#/practice/amount/D'); break;
+    case 'redeem': { const c = redeemCheck(); if (!c.ok) return; state.redeemAmt = String(c.v); state.tracker = 'normal'; state.trackerFeedback = null; go('#/money/track/23842'); break; }
+    case 'feedback': state.trackerFeedback = arg; render(); break;
+    case 'fixBankDetails': state.tracker = 'resolved'; toast('Bank details updated. Your withdrawal has gone through.'); render(); break;
+    case 'setAccount': state.account = arg; saveAccount(); closeSheets(); go(location.hash.startsWith('#/money') ? '#/money' : '#/home'); break;
+    case 'setTracker':
+      if (state.account === 'new') { state.account = 'investor'; saveAccount(); }
+      state.tracker = arg; state.trackerFeedback = null; closeSheets(); closeControlsIfMobile(); go('#/money/track/23842'); break;
+    case 'reset': clearTimeout(timer); state = initial(); try { localStorage.removeItem('gwy-account'); } catch (err) { /* ignore */ } sheets = []; renderSheet(); closeControlsIfMobile(); lastRoute = ''; go('#/home'); break;
+    case 'toggleControls': {
+      const open = !controls.classList.contains('open'); controls.classList.toggle('open', open);
+      document.querySelector('.reviewer-toggle').setAttribute('aria-expanded', String(open));
+      if (open) { const b = controls.querySelector('button:not(.close-controls)'); if (b) b.focus(); } else document.querySelector('.reviewer-toggle').focus();
+      break;
+    }
+    case 'tourHome': state.account = 'new'; saveAccount(); closeSheets(); closeControlsIfMobile(); go('#/home'); break;
+    case 'tourPractice': closeSheets(); closeControlsIfMobile(); go('#/practice'); break;
+    case 'tourBuy': state.buyAmt.kiran = '500'; closeSheets(); closeControlsIfMobile(); go('#/buy/kiran'); break;
+    case 'tourHype': closeSheets(); closeControlsIfMobile(); go('#/stock/zephyr'); break;
+    case 'tourLens': state.account = 'investor'; saveAccount(); closeSheets(); closeControlsIfMobile(); go('#/money'); break;
+    case 'tourTrack': state.account = 'investor'; saveAccount(); state.redeemAmt = '8000'; closeSheets(); closeControlsIfMobile(); go('#/money/redeem'); break;
+    case 'tourRisk': state.risk = { done: false }; closeSheets(); closeControlsIfMobile(); go('#/practice/risk'); break;
+  }
+});
+document.addEventListener('input', e => {
+  const el = e.target, kind = el.getAttribute('data-input');
+  if (!kind) return;
+  const val = el.value.replace(/[^\d]/g, '').slice(0, 7);
+  if (val !== el.value) el.value = val;
+  if (kind === 'buyAmt') {
+    const id = el.getAttribute('data-arg'); state.buyAmt[id] = val;
+    const s = buySummary(id); document.getElementById('buy-summary').innerHTML = s.html;
+    document.getElementById('review-btn').disabled = !s.ok;
+  } else if (kind === 'customAmt') {
+    state.amt.custom = val; const a = amountFromChoice(), id = location.hash.split('/').pop();
+    document.getElementById('amt-note').innerHTML = amtNote(id, a);
+    document.getElementById('amt-continue').disabled = !a.ok;
+  } else if (kind === 'redeemAmt') {
+    state.redeemAmt = val; const c = redeemCheck();
+    document.getElementById('redeem-note').innerHTML = c.ok ? '' : `<p class="error">${c.msg}</p>`;
+    const b = document.getElementById('redeem-btn'); b.disabled = !c.ok; b.textContent = c.ok ? 'Redeem ' + rs(c.v) : 'Redeem';
+  }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (sheets.length) { closeSheets(); render(); }
+    else if (controls.classList.contains('open')) { closeControlsIfMobile(); document.querySelector('.reviewer-toggle').focus(); }
+    return;
+  }
+  if (e.key === 'Tab' && sheets.length) {
+    const f = [...sheetRoot.querySelectorAll('button:not([disabled]), summary, input, [href], [tabindex="0"]')];
+    if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && (document.activeElement === first || !sheetRoot.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+  if (e.key === 'Enter' && e.target.matches('input[data-input]')) {
+    const btn = e.target.id === 'buy-amt' ? document.getElementById('review-btn') : e.target.id === 'custom-amt' ? document.getElementById('amt-continue') : e.target.id === 'redeem-amt' ? document.getElementById('redeem-btn') : null;
+    if (btn && !btn.disabled) btn.click();
+  }
+});
+window.addEventListener('hashchange', () => { if (sheets.length) { sheets = []; renderSheet(); } render(); });
+
+render();
+})();
+</script>
+</body>
+</html>
